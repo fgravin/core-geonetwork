@@ -6998,6 +6998,9 @@ button.close {
 [gn-main-viewer] [go-map] {
   width: 100%;
 }
+[gn-main-viewer] [go-map].loading:hover {
+  cursor: wait;
+}
 [gn-main-viewer] .search-container {
   position: absolute;
   top: 1em;
@@ -7579,6 +7582,54 @@ fieldset[disabled] [gn-main-viewer] .panel-tools .metadata:focus {
   padding-left: 15px;
   padding-right: 15px;
 }
+[gn-main-viewer] [gn-gfi] .results {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  width: 35em;
+  background: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0;
+  max-height: 40em;
+  overflow: auto;
+}
+[gn-main-viewer] [gn-gfi] .results .panel-heading,
+[gn-main-viewer] [gn-gfi] .results .panel-footer {
+  background: transparent;
+  padding: .25em 1em;
+}
+[gn-main-viewer] [gn-gfi] .results .panel-heading {
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+[gn-main-viewer] [gn-gfi] .results .list-group ul {
+  padding-left: 0;
+  list-style: none;
+}
+[gn-main-viewer] [gn-gfi] .results .list-group h5 {
+  padding-left: 1em;
+}
+[gn-main-viewer] [gn-gfi] .results span {
+  display: inline-block;
+  max-width: 20em;
+  vertical-align: top;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+[gn-main-viewer] [gn-gfi] .results b {
+  text-transform: capitalize;
+  display: inline-block;
+  width: 12em;
+  text-align: right;
+}
+[gn-main-viewer] [gn-gfi] .results .close {
+  padding-top: .3em;
+}
+[gn-main-viewer] [gn-gfi] .results .close:hover {
+  background: transparent;
+}
 .gn-facet .list-group-item {
   border-width: 0;
   border-radius: 0;
@@ -7691,6 +7742,20 @@ select[multiple][hitsperpage-combo] select {
 .gn-advanced-searchform .panel.col-md-4 {
   padding-left: 0;
   padding-right: 0;
+}
+[gn-selection-widget] {
+  display: inline-block;
+  position: relative;
+}
+[gn-selection-widget] .md-checkbox {
+  position: absolute;
+  z-index: 10;
+  top: 1.3em;
+  left: 0.9em;
+}
+[gn-selection-widget] .btn-group [type=checkbox] {
+  visibility: hidden;
+  pointer-events: none;
 }
 [search-results] h4 {
   font-size: 15px;
@@ -7881,3 +7946,4 @@ select[multiple][hitsperpage-combo] select {
 [gn-main-viewer] [go-map] {
   height: 100%;
 }
+/*# sourceMappingURL=sextant.css.map */

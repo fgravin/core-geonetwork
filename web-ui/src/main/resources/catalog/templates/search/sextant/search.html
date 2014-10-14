@@ -17,8 +17,8 @@
           {{mainTabs.map.title}}
           <span class="badge" ng-if="mainTabs.map.titleInfo">{{mainTabs.map.titleInfo}}</span>
         </tab-heading>
-        <div gn-main-viewer="" map="searchObj.viewerMap">
-        </div>
+        <div gn-main-viewer="" map="searchObj.viewerMap"></div>
+        <div gn-gfi="" map="searchObj.viewerMap"></div>
       </tab>
       <tab heading="{{mainTabs.search.title}}" active="mainTabs.search.active">
         <div class="container" data-ng-controller="gnsSextantSearch">

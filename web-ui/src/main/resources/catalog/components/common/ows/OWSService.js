@@ -70,7 +70,7 @@
                 defaultParams[p] = urlParams[p];
                 if(defaultParams.hasOwnProperty(p.toLowerCase()) &&
                     p != p.toLowerCase()){
-                      delete defaultParams[ptoLowerCase()];
+                      delete defaultParams[p.toLowerCase()];
                 }
               }
 

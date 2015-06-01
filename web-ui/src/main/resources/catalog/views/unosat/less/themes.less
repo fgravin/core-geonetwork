@@ -1,0 +1,73 @@
+@main-txt: #707298;
+@main-bg: #25235C;
+@main-btn-bg: #CBD2E3;
+@main-txt-light: rgb(192, 192, 207);
+
+[data-theme="main"] {
+  .btn {
+    color: @main-txt;
+  }
+  .form-control {
+    background-color: @main-btn-bg !important;
+    color: white;
+    .placeholder(white);
+
+    &:focus {
+      border-color: @main-txt;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(34, 8, 73, 0.6);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(34, 8, 73, 0.6);
+    }
+  }
+  header {
+    un-search {
+      .tt-suggestion > p {
+        &:hover, &:focus {
+          color: @main-txt-light;
+          background-color: @main-btn-bg;
+        }
+      }
+    }
+  }
+  #sidebar {
+    background-color: @main-bg;
+
+    un-backgroundlayer {
+      > div > span {
+        color: @main-txt-light;
+      }
+      .dropdown {
+        button, ul {
+          background-color:@main-btn-bg;
+        }
+      }
+    }
+  }
+  .un-main-tools {
+    .un-tool-btn {
+      background-color: @main-txt;
+      color: white;
+
+      &:focus, &:hover, &.active {
+        background-color: white;
+        color: @main-txt;
+      }
+    }
+  }
+  ul.layermanager {
+    &, a {
+      color: @main-txt-light;
+    }
+    li {
+      background-color: @main-txt;
+    }
+  }
+  .ol-control button {
+    background-color: white;
+    color: @main-txt;
+
+    &:focus, &:hover {
+      background-color: @main-txt;
+      color: white;
+    }
+  }
+}

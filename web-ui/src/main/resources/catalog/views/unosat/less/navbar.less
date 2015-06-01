@@ -1,0 +1,69 @@
+@navbars-button-border-color: #8394a0;
+
+header {
+  /*background-image:  url("../catalog/views/unosat/img/header_bg.jpg");*/
+  &.navbar {
+    border-width: 0;
+    min-height:@header-height;
+
+    @media (max-width: @screen-xs-max) {
+      min-height: 40px;
+    }
+    .navbar-brand {
+      height: @header-height;
+    }
+  }
+  .box-shadow(0px 2px 6px -1px rgba(0, 0, 0, 0.5));
+
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  img {
+    height: 65px;
+    width: 65px;
+    margin-top: -10px;
+    margin-left: 15px;
+  }
+
+  un-search {
+    .navbar-form {
+      padding-bottom: 15px;
+      padding-top: 15px;
+      margin-right: 30px;
+    }
+  }
+}
+
+.nav {
+  > li {
+    /* force items to appear on the same line even for small screens */
+    display: inline-block;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.4);
+  transition: all 300ms ease-out 0s;
+  &.offset-left {
+    left: @sidebar-width;
+  }
+}
+
+.footer-navigation > li > a {
+  color: #6b818f;
+  text-transform: uppercase;
+}
+
+
+@media (min-width: 768px) {
+  footer {
+    -webkit-box-shadow: 0 2px 6px 1px rgba(0,0,0,.5);
+    box-shadow: 0 2px 6px 1px rgba(0,0,0,.5);
+  }
+}

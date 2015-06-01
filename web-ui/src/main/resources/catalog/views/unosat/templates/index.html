@@ -1,0 +1,82 @@
+<div id="main-container" data-theme="main" ng-controller="MainController as mainCtrl">
+
+  <!--Header-->
+  <header class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://reseau-tchad.org/" target="_blank">
+          <img class="respimg" width="180" alt="ResEau" src="../../catalog/views/unosat/img/Logo_cercle_ResEau_v1_lueur.png" style="">
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <un-search un-search-map="mainCtrl.map"></un-search>
+        </li>
+      </ul>
+
+    </div>
+
+  </header>
+
+  <!--Container-->
+  <div id="map-container" >
+    <div id="sidebar" ng-class="{open: mainCtrl.sidebarOpen()}"
+         ngeo-resizemap="mainCtrl.map">
+      <div id="layers" data-ng-show="mainCtrl.layersOpen">
+        <h2 translate>layers</h2>
+        <button class="close-panel" ng-click="mainCtrl.closeSidebar()">
+          ✕
+        </button>
+        <un-backgroundlayer un-backgroundlayer-map="::mainCtrl.map"></un-backgroundlayer>
+        <div id="maplayers">
+          <un-layermanager un-layermanager-map="::mainCtrl.map"></un-layermanager>
+        </div>
+      </div>
+      <div id="catalogpanel" data-ng-show="mainCtrl.catalogOpen">
+        <h2 translate>catalog</h2>
+        <button class="close-panel" ng-click="mainCtrl.closeSidebar()">
+          ✕
+        </button>
+        <un-catalog un-catalog-map="::mainCtrl.map"></un-catalog>
+      </div>
+      <div id="printpanel" data-ng-show="mainCtrl.printOpen">
+        <h2 translate>print</h2>
+        <button class="close-panel" ng-click="mainCtrl.closeSidebar()">
+          ✕
+        </button>
+        <div gn-mapprint="" print-active="mainCtrl.printOpen" map="::mainCtrl.map"></div>
+      </div>
+      <div id="measurepanel" data-ng-show="mainCtrl.mInteraction.active">
+        <h2 translate>measure</h2>
+        <button class="close-panel" ng-click="mainCtrl.closeSidebar()">
+          ✕
+        </button>
+        <div class="gn-measure-text">
+          <div class="alert alert-warning hidden-print" translate>measure_instruction</div>
+          <dl class="dl-horizontal">
+            <dt>{{'Distance' | translate}}</dt>
+            <dd>{{mainCtrl.measureObj.distance | measure}}</dd>
+            <dt>{{'Surface' | translate}}</dt>
+            <dd>{{mainCtrl.measureObj.surface | measure:'area':['km&sup2', ' m&sup2']}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="un-main-tools" ngeo-btn-group ng-class="{active: mainCtrl.sidebarOpen()}">
+      <button class="un-tool-btn btn" ngeo-btn ng-model="mainCtrl.layersOpen"><i class="fa fa-tasks"></i> </button>
+      <button class="un-tool-btn btn" ngeo-btn ng-model="mainCtrl.catalogOpen"><i class="fa fa-book"></i> </button>
+      <button class="un-tool-btn btn" ngeo-btn ng-model="mainCtrl.printOpen"><i class="fa fa-print"></i> </button>
+      <button class="un-tool-btn btn" ngeo-btn ng-model="mainCtrl.mInteraction.active"><i class="fa fa-print"></i> </button>
+      <button class="un-tool-btn btn"><i class="fa fa-tasks"></i> </button>
+    </div>
+    <div ngeo-map="mainCtrl.map">
+    </div>
+  </div>
+  <footer ng-class="{'offset-left': mainCtrl.sidebarOpen()}">
+<!--
+    <div id="scale-position" ngeo-control="mainCtrl.scaleControl" ngeo-control-map="mainCtrl.map"></div>
+-->
+  </footer>
+</div>

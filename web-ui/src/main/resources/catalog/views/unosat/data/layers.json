@@ -1,0 +1,64 @@
+[
+  {
+    "name": "root",
+    "children": [
+      {
+        "name": "Rock",
+        "children": [
+          {
+            "layers": "unosat:Couverture_P",
+            "type": "WMS",
+            "name": "Couverture",
+            "url": "http://localhost:8082/geoserver/unosat/wms?"
+          },
+          {
+            "layers": "unosat:Hydrogeologie_P",
+            "type": "WMS",
+            "name": "Hydrogeologie",
+            "url": "http://localhost:8082/geoserver/unosat/wms?"
+          },
+          {
+            "layers": "unosat:Sources",
+            "type": "WMS",
+            "name": "Sources",
+            "url": "http://localhost:8082/geoserver/unosat/wms?"
+          }
+        ]
+      },
+      {
+        "name": "Water",
+        "children": [
+          {
+            "layers": "dem:altitude",
+            "type": "WMS",
+            "name": "Altitude",
+            "url": "http://sdi.georchestra.org/geoserver/ows?SERVICE=WMS&"
+          },
+          {
+            "layers": "dem:hillshading",
+            "type": "WMS",
+            "name": "Ombres",
+            "url": "http://sdi.georchestra.org/geoserver/ows?SERVICE=WMS&"
+          },
+          {
+            "name": "rivers",
+            "children": [
+              {
+                "layers": "dem:altitude",
+                "type": "WMS",
+                "name": "Altitude",
+                "url": "http://sdi.georchestra.org/geoserver/ows?SERVICE=WMS&"
+              },
+              {
+                "layers": "dem:hillshading",
+                "type": "WMS",
+                "name": "Ombres",
+                "url": "http://sdi.georchestra.org/geoserver/ows?SERVICE=WMS&"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

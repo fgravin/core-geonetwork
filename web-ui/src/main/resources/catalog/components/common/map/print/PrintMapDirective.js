@@ -336,7 +336,7 @@
 
             // Deactivate only if it has been activated once first
             scope.$watch('printActive', function(isActive, old) {
-              if (angular.isDefined(isActive) &&
+              if (angular.isDefined(isActive) && isActive!= old &&
                   (angular.isDefined(old) || isActive)) {
                 if (isActive) {
                   ctrl.activate();

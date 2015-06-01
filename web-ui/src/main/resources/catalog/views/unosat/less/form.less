@@ -1,0 +1,23 @@
+.input-underline {
+  background: 0 0;
+  border: none;
+  box-shadow: none;
+  border-bottom: 2px solid rgba(255,255,255,.4);
+  color: #FFF;
+  border-radius: 0;
+
+  &.form-control {
+    background-color: transparent !important;
+  }
+  &:focus {
+    border-bottom: 2px solid #fff;
+    box-shadow: none;
+  }
+
+  select& option {
+    margin:40px;
+    background: rgba(0,0,0,0.3);
+    color:#fff;
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+  }
+}

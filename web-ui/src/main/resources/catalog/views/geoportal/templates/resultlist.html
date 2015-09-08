@@ -1,0 +1,34 @@
+<ul class="list-group gn-resultview">
+  <li class="list-group-item" data-ng-repeat="md in searchResults.records" gn-displayextent-onhover="" gn-zoomto-onclick>
+    <div class="media">
+
+      <!-- Thumbnail -->
+      <div class="pull-right gn-md-thumbnail" ng-if="md.getThumbnails().small">
+        <span ng-if="!md.getThumbnails().small" translate>noThumbnail</span>
+        <img ng-src="{{md.getThumbnails().small}}" class="img-thumbnail" ng-if="md.getThumbnails().small"/>
+      </div>
+
+      <!--Catalog Logo-->
+      <a class="pull-left" ng-if="md.groupWebsite" href="{{md.groupWebsite}}" target="_blank">
+        <img ng-src="../..{{md.logo}}" class="media-object"/>
+      </a>
+      <a class="pull-left" ng-if="!md.groupWebsite">
+        <img ng-src="../..{{md.logo}}" class="media-object"/>
+      </a>
+
+      <div class="media-body">
+        <h4>
+          <input gn-selection-md type="checkbox" ng-model="md['geonet:info'].selected" ng-change="change()"/>
+
+          <!-- Icon for types -->
+          <a href="" data-ng-click="openRecord($index, md, searchResults.records)" title="{{md.title || md.defaultTitle}}">
+            <span class="fa gn-icon-{{md.type[0]}}"></span>
+            {{md.title || md.defaultTitle}}</a>
+        </h4>
+        <p class="text-justify" dd-text-collapse dd-text-collapse-max-length="350" dd-text-collapse-text="{{md.abstract || md.defaultAbstract}}"></p>
+        <blockquote ng-if="md.getContacts().resource">{{::md.getContacts().resource}}</blockquote>
+      </div>
+    </div>
+
+  </li>
+</ul>

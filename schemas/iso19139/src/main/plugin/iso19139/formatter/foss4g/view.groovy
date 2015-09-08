@@ -1,6 +1,13 @@
 import iso19139.SummaryFactory
 
-def isoHandlers = new iso19139.Handlers(handlers, f, env)
+def isoHandlers = new iso19139.Handlers(handlers, f, env) {
+    {
+        def oldImpl = super.isoTextEl
+        isoTextEl = { el ->
+            "----------- ${oldImpl(el)}"
+        }
+    }
+}
 
 def factory = new SummaryFactory(isoHandlers, {summary ->
     summary.title = "My Title"

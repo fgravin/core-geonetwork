@@ -1,16 +1,16 @@
 handlers.start {
-    '''<link rel="stylesheet" href="../../static/formatter.css"/>
-      <div class="container">'''
+    '''<div class="gn-metadata-view container">'''
 }
 handlers.end {
     '</div>'
 }
 
-handlers.add select: {el -> !el.'gco:CharacterString'.text().isEmpty()},
-        group: true, {els ->
-    def elements = els.collect {el ->
-        [name: f.nodeLabel(el), text: el.text()]
-    }
-    handlers.fileResult('foss4g/elem.html',
-            [elements: elements, parent: f.nodeLabel(els[0].parent())])
-}
+def isoHandlers = new iso19139.Handlers(handlers, f, env)
+
+handlers.add select: isoHandlers.matchers.isTextEl, isoHandlers.isoTextEl
+handlers.add name: 'Container Elements',
+        select: isoHandlers.matchers.isContainerEl,
+        priority: -1,
+        isoHandlers.commonHandlers.entryEl(f.&nodeLabel,
+                isoHandlers.addPackageViewClass)
+isoHandlers.addExtentHandlers()

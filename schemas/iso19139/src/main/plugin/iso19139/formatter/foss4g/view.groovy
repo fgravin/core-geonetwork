@@ -1,1 +1,3 @@
-handlers.add 'gco:CharacterString', {el -> "<div>${el.text()}</div>"}
+handlers.add select: {el -> !el.'gco:CharacterString'.text().isEmpty()}, {el ->
+    "<div><b>${el.name()}</b> - ${el.text()}</div>"
+}

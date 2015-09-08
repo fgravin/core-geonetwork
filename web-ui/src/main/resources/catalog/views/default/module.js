@@ -229,6 +229,8 @@
         }
       });
 
+      $scope.searchTplFiles = gnSearchSettings.searchTplFiles;
+
       angular.extend($scope.searchObj, {
         advancedMode: false,
         from: 1,

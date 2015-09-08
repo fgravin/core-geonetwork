@@ -175,6 +175,14 @@
           searchSettings.resultTemplate =
               searchSettings.resultViewTpls[0].tplUrl;
 
+          searchSettings.searchTplFiles = {
+            home: '../../catalog/views/default/templates/home.html',
+            results: '../../catalog/views/default/templates/results.html',
+            map: '../../catalog/views/default/templates/map.html',
+            recordView: '../../catalog/views/default/templates/recordView.html'
+          };
+
+
           // Set custom config in gnSearchSettings
           angular.extend(searchSettings, {
             viewerMap: viewerMap,

@@ -9,6 +9,9 @@
   module.run(['gnSearchSettings', function(gnSearchSettings){
 
     gnSearchSettings.resultTemplate ='../../catalog/views/geoportal/' +
-        'templates/resultlist.html'
+        'templates/resultlist.html';
+
+    gnSearchSettings.searchTplFiles.results =
+        '../../catalog/views/geoportal/templates/results.html';
   }]);
 })();

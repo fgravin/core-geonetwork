@@ -1,1 +1,20 @@
-<div data-ng-include="'../../catalog/views/default/templates/index.html'"></div>
+<div class="navbar navbar-default"
+     data-ng-include="'../../catalog/views/geoportal/templates/top-toolbar.html'">
+</div>
+
+<div data-gn-alert-manager=""></div>
+<div class="gn-search-page" data-ng-controller="GnSearchController">
+  <div class=""
+       data-ng-controller="gnsDefault">
+
+    <div data-ng-include="searchTplFiles.home"
+         data-ng-show="activeTab == '/home'"/>
+    <div data-ng-include="searchTplFiles.results"
+         data-ng-show="activeTab == '/search'"/>
+    <div data-ng-if="isMapViewerEnabled"
+         data-ng-include="searchTplFiles.map"
+         data-ng-show="activeTab == '/map'"/>
+    <div data-ng-include="searchTplFiles.recordView"
+         data-ng-show="activeTab == '/metadata'"/>
+  </div>
+</div>

@@ -1,9 +1,41 @@
 @import "../../default/less/gn_search_default.less";
 
+@bg-color: #B12E2E;
+
+@font-face {
+  font-family: 'Lato';
+  src: url('http://fonts.gstatic.com/s/lato/v11/1YwB1sO8YE1Lyjf12WNiUA.woff2') format('woff2');
+}
+
+.body {
+  font-family: Lato, sans-serif;
+}
 [data-gn-map-field] > [ngeo-map] {
-  left: 0;
-  top: 0;
   position: relative !important;
+  height: 250px !important;
+  width: 100% !important;
+  border: none;
+  margin: 0;
+
+  .btn-default {
+    border-radius: 0;
+    background-color: #934179;
+    color: white;
+    border: none;
+  }
+  .gn-draw-btn {
+    top: 10px;
+    right: 5px;
+    left: auto;
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+      border-radius: 0;
+    }
+  }
+  .btn-group-vertical {
+    display: none;
+  }
 }
 
 .gn-facet .gn-facet-collapseall {
@@ -12,4 +44,77 @@
 
 .gn-search-facet {
   margin-bottom: 30px;
+}
+
+.navbar {
+  min-height: 100px;
+  background-color: white;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  padding-top: 10px;
+  .title {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Lato, sans-serif;
+    margin-top: 15px;
+    margin-left: 20px;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+
+.main-input {
+  padding-top: 17px;
+  height: 80px;
+  background-color: #934179;
+  .input-group {
+    input {
+      border-radius: 0;
+      &.form-control:focus {
+        border-color: #F15A30;
+      }
+    }
+    .input-group-btn {
+      .btn-link {
+        color: black;
+      }
+      background-color: #F15A30;
+    }
+  }
+}
+
+.no-result {
+  height: 60px;
+  line-height: 60px;
+  text-transform: uppercase;
+  background-color: #F15A30;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-top: 30px;
+}
+
+ul.gn-resultview {
+  margin-top: 30px;
+  li.list-group-item {
+    height: 100px;
+    border-radius: 0;
+    margin-bottom: 0;
+    padding-top: 15px;
+    border: 2px solid #F15A30;
+    border-width: 0 0 2px;
+    &:hover {
+      a, .media h4 a {
+        color: white;
+      }
+      color: white;
+      background-color: @bg-color;
+
+    }
+
+
+  }
 }

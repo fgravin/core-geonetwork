@@ -1,63 +1,55 @@
-<div class="container-fluid"
+<div class=""
      data-ng-search-form=""
      data-runSearch="true">
-  <div data-ng-include="'../../catalog/views/default/templates/searchForm.html'"></div>
 
-  <div class="row"
-       data-ng-show="searchResults.records.length > 0">
-    <div class="col-md-offset-3 col-md-2 relative">
-      <div data-gn-selection-widget=""
-           data-results="searchResults"></div>
+  <div data-gn-map-field="searchObj.searchMap"
+       data-gn-map-field-geom="searchObj.params.geometry"
+       data-gn-map-field-opt="searchObj.mapfieldOption"
+       class="gn-search-map">
+  </div>
+
+  <div class="row main-input">
+    <div class="col-md-offset-3 col-md-6 relative">
+      <div class="input-group gn-form-any">
+
+        <input type="text"
+               class="form-control input-lg"
+               id="gn-any-field"
+               data-ng-model="searchObj.params.any"
+               data-ng-model-options="modelOptionsForm"
+               placeholder="{{'anyPlaceHolder' | translate}}"
+               data-ng-keyup="$event.keyCode == 13 && triggerSearch()"
+               data-typeahead="address for address in getAnySuggestions($viewValue)"
+               data-typeahead-loading="anyLoading" class="form-control"
+               data-typeahead-min-length="1"
+               data-typeahead-focus-first="false">
+
+        <div class="input-group-btn">
+          <button type="button"
+                  data-ng-click="triggerSearch()"
+                  class="btn btn-link btn-lg">
+            <i class="fa fa-search"></i>
+          </button>
+          <button type="button"
+                  data-ng-click="resetSearch(searchObj.defaultParams);"
+                  title="{{'ClearTitle' | translate}}"
+                  class="btn btn-link btn-lg">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-md-7">
-      <div class="pull-right"
-           data-gn-pagination="paginationInfo"
-           data-hits-values="searchObj.hitsperpageValues"
-           data-enable-hot-keys=""></div>
-
-      <div class="pull-right"
-           data-sortby-combo=""
-           data-params="searchObj.params"
-           data-gn-sortby-values="searchObj.sortbyValues"></div>
+    <div class="col-lg-3">
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-3 gn-search-facet">
 
-      <div data-gn-map-field="searchObj.searchMap"
-           data-gn-map-field-geom="searchObj.params.geometry"
-           data-gn-map-field-opt="searchObj.mapfieldOption"
-           class="gn-search-map">
-      </div>
-
-      <!-- Hierachical facet mode -->
-      <div data-ng-show="searchResults.records.length > 0"
-           data-gn-facet-dimension-list="searchResults.dimension"
-           data-params="searchObj.params"
-           data-facet-type="facetsSummaryType"
-           data-current-facets="currentFacets">
-      </div>
-
-      <!-- Flat facet mode (deprecated)
-      <div data-ng-show="searchResults.records.length > 0"
-           data-gn-facet-list="searchResults.facet"
-           data-params="searchObj.params"
-           data-facet-config="facetsSummaryType"
-           data-current-facets="currentFacets">
-      </div>-->
-    </div>
-    <div class="col-md-9">
-      <!-- Flat facet mode (deprecated)
-      <div class="gn-results-heading">
-        <div data-gn-facet-breadcrumb="currentFacets"></div>
-      </div>-->
+  <div class="container">
       <span class="loading fa fa-spinner fa-spin"
             data-ng-show="searching"></span>
 
-      <div class="alert alert-warning" role="alert"
+      <div class="no-result"
            ng-if="!searching && searchResults.count == 0">
-        <i class="fa fa-frown-o"></i>
         <span data-translate="">zarooResult</span>
       </div>
 
@@ -67,12 +59,6 @@
            data-template-url="resultTemplate"
            data-map="searchObj.searchMap"></div>
 
-    </div>
   </div>
 
-  <button data-ng-click="toggleMap()"
-          title="{{'toggleMiniMap' | translate}}"
-          class="gn-minimap-toggle btn btn-link">
-    <i class="fa fa-angle-double-right"></i>
-  </button>
 </div>

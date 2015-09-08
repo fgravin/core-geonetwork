@@ -118,7 +118,7 @@
                 }
               });
               if (!ol.extent.isEmpty(extent)) {
-                scope.map.getView().fit(extent, scope.map.getSize());
+                //scope.map.getView().fit(extent, scope.map.getSize());
               }
             }
           });

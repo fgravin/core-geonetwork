@@ -41,6 +41,8 @@ public class User extends GeonetEntity implements UserDetails {
     private String _lastLoginDate;
     private Boolean _isEnabled;
 
+    private List<UserListesiteweb> _listesitewebs = new ArrayList<UserListesiteweb>();
+
     /**
      * Get the userid.   This is a generated value and as such new instances should not have this set as it will simply be ignored
      * and could result in reduced performance.
@@ -379,6 +381,16 @@ public class User extends GeonetEntity implements UserDetails {
     public User setEnabled(Boolean enabled) {
         this._isEnabled = enabled;
         return this;
+    }
+
+    @JoinColumn(name = "userId")
+    @OneToMany(fetch = FetchType.LAZY)
+    public List<UserListesiteweb> getListesitewebs() {
+        return _listesitewebs;
+    }
+
+    public void setListesitewebs(List<UserListesiteweb> listesitewebs) {
+        this._listesitewebs = listesitewebs;
     }
 
     /**

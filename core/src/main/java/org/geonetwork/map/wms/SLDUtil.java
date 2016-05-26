@@ -1,15 +1,23 @@
 package org.geonetwork.map.wms;
+import org.fao.geonet.constants.Geonet;
+import org.fao.geonet.utils.Xml;
 import org.geotools.data.ows.Specification;
 import org.geotools.data.wms.WMS1_1_1;
 import org.geotools.data.wms.WebMapServer;
 import org.geotools.data.wms.request.GetStylesRequest;
 import org.geotools.data.wms.response.GetStylesResponse;
 import org.geotools.factory.CommonFactoryFinder;
+import org.geotools.filter.v1_0.OGCConfiguration;
 import org.geotools.ows.ServiceException;
 import org.geotools.styling.*;
 import org.geotools.styling.builder.NamedLayerBuilder;
 import org.geotools.styling.builder.StyleBuilder;
 import org.geotools.styling.builder.StyledLayerDescriptorBuilder;
+import org.geotools.xml.Configuration;
+import org.geotools.xml.Encoder;
+import org.jdom.Content;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,9 +26,12 @@ import org.opengis.filter.FilterFactory2;
 
 import javax.mail.internet.ContentType;
 import javax.mail.internet.ParseException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,6 +112,52 @@ public class SLDUtil {
     }
 
 
+    public static void insertFilter(Element doc, Filter filter) throws JDOMException, IOException {
+
+        String sFilter = SLDUtil.encodeFilter(filter);
+        Element filterElt = Xml.loadString(sFilter, false);
+
+        // Check rules in both se and sld namespaces
+        List<Element> rules = (List<Element>) Xml.selectNodes(doc, "*//sld:Rule", Arrays.asList(Geonet.Namespaces.SLD));
+        if(rules.size() == 0) {
+            rules = (List<Element>) Xml.selectNodes(doc, "*//se:Rule", Arrays.asList(Geonet.Namespaces.SE));
+        }
+
+        for (Element rule : rules) {
+            List<Element> filters = (List<Element>) Xml.selectNodes(rule, "ogc:Filter", Arrays.asList(Geonet.Namespaces.OGC));
+            if(filters.size() == 0) {
+                rule.addContent(filterElt);
+            }
+            else if (filters.size() == 1) {
+                Element sldFilterElt = filters.get(0);
+                Element filterContent = (Element)sldFilterElt.getChildren().get(0);
+                filterContent.detach();
+                sldFilterElt.removeContent();
+                Element andElt = new Element("And", Geonet.Namespaces.OGC);
+                andElt.addContent(filterContent);
+
+                List<Element> originFilterChildren = (List<Element>) filterElt.getChildren();
+                if(originFilterChildren.size() > 0) {
+                    andElt.addContent(originFilterChildren.get(0).detach());
+                    sldFilterElt.addContent(andElt);
+                }
+            }
+            else {
+                throw new JDOMException("A rule must have maximum one ogc:filter element");
+            }
+        }
+    }
+
+    public static String encodeFilter(Filter filter) throws IOException {
+        String res = null;
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        Configuration configuration = new OGCConfiguration();
+        Encoder encoder = new Encoder(configuration);
+        encoder.encode( filter, org.geotools.filter.v1_0.OGC.Filter, outputStream);
+
+        return outputStream.toString();
+    }
 
     /**
      * Merge new filter to an existing list of Style. This method add a new filter into SLD document, if there is

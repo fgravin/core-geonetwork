@@ -29,12 +29,12 @@
                 id="gn-settings-spy-target">
         <h1>{{section1.name | translate}}</h1>
         <fieldset data-ng-repeat="section2 in section1.children | orderObjectBy:'position'"
-                  id="{{section2.name.replace('/', '-')}}">
+                  id="{{section2.name.replace('/', '-')}}" ng-if="isSettingVisible(section2.name)">
           <legend>{{section2.name | translate}}</legend>
           <!-- According to data type -->
           <div data-ng-repeat="s in section2.children | hideLanguages | orderObjectBy:'position'"
                data-ng-switch="s.dataType">
-            <div data-ng-switch-when="BOOLEAN">
+            <div data-ng-switch-when="BOOLEAN" ng-if="isSettingVisible(s.name)">
               <label class="col-sm-4 control-label" for="{{s['name']}}"> {{s['name'] |
                 translate}} </label>
               <div class="col-sm-8">
@@ -49,7 +49,7 @@
                 </p>
               </div>
             </div>
-            <div data-ng-switch-default=""
+            <div data-ng-switch-default="" ng-if="isSettingVisible(s.name)"
                  data-ng-class="gnSettings[s.name].$error.required ||
                                 gnSettings[s.name].$error.json ? 'has-error' : ''"
                  class="form-group">

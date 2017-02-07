@@ -70,6 +70,24 @@
     function($scope, $http, $rootScope, $translate, $location,
         gnUtilityService) {
 
+      // specific MEDDE
+      var hiddenFields = [
+        'system/server',
+        'system/intranet',
+        'system/proxy',
+        'system/removedMetadata',
+        'system/feedback/mailServer/host',
+        'system/feedback/mailServer/ssl',
+        'system/feedback/mailServer/port',
+        'system/feedback/mailServer/username',
+        'system/feedback/mailServer/password'
+      ];
+
+      $scope.isSettingVisible = function(key) {
+        return (hiddenFields.indexOf(key) < 0);
+      };
+      // end specific MEDDE
+
       $scope.settings = [];
       $scope.initalSettings = [];
       $scope.sectionsLevel1 = {};

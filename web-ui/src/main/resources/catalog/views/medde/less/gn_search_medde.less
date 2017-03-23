@@ -1,0 +1,12 @@
+// hide certain facets in search resultsCount
+.gn-search-facet .gn-facet-list {
+  /*
+  .gn-facet-serviceTypes, .gn-facet-formats, .gn-facet-status,
+  .gn-facet-denominators, .gn-facet-orgNames, .gn-facet-spatialRepresentationTypes {
+    display: none;
+  }
+  */
+  & > .gn-facet:not(.gn-facet-types):not(.gn-facet-topicCats):not(.gn-facet-keywords):not(.gn-facet-sourceCatalog):not(.gn-facet-createDateYears) {
+    display: none;
+  }
+}

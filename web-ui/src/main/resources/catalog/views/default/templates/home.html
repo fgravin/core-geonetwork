@@ -1,6 +1,27 @@
 <div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-8">
+    </div>
+
+  </div>
+
   <div class="row gn-row-main">
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-8">
+
+      <h3>Catalogue Interministériel de Données Géographiques</h3>
+      <br/>
+      <p>
+        <em>Recherchez et accédez en quelques clics au patrimoine de données
+          géographiques catalogué dans l'infrastructure de données géographiques
+          (IDG) interministérielle <a href=#>Géo-IDE</a>.</em>
+      </p>
+      <p>
+        L'IDG Géo-IDE est mise à disposition des services des ministères de l'écologie, de l'agriculture et du logement et des directions départementales interministérielles (DDT, DDCS, DDPP) et préféctures.
+        <br/>
+        <a href=#>Lire la suite</a>
+      </p>
+      <br/>
 
       <div class="input-group gn-form-any">
         <input type="text"
@@ -26,15 +47,17 @@
            data-translate-values="{records: '{{searchInfo.count}}'}">searchOver</div>
 
     </div>
-  </div>
 
-<div class="row">
-    <div data-gn-map-field=""
-         data-gn-map-field-geom=""
-         data-gn-map-field-opt=""
-         class="gn-search-map">
+    <div class="col-sm-4">
+      <div class="row homepage-map">
+          <div data-gn-map-field="searchObj.searchMap"
+          data-gn-map-field-geom="searchObj.params.geometry"
+          data-gn-map-field-opt="searchObj.mapfieldOption"
+               class="gn-search-map">
+          </div>
+      </div>
     </div>
-</div>
+  </div>
 
   <div class="row" data-ng-show="searchInfo.count == 0">
     <div data-ng-show="searchInfo.count == 0"

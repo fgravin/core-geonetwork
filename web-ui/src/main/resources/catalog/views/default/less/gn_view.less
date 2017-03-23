@@ -2,5 +2,34 @@
    which has to be applied for all apps
    (ie. admin, search, login, editor). */
 
- // overload with custom styles for MEDDE
- @import "../../medde/less/gn_view.less";
+// header styles
+.c2c-medde-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+
+  .c2c-spacer {
+    flex-grow: 1;
+  }
+
+  .c2c-title-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 600;
+
+    .c2c-logos {
+      white-space: nowrap;
+    }
+
+    img {
+      margin-right: 6px;
+    }
+    img:last-child {
+      margin-right: 12px;
+    }
+  }
+}

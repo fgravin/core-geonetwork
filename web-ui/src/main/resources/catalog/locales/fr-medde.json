@@ -5,5 +5,7 @@
     "contactUs": "Contact",
     "lastUpdateTime": "",
     "copyrightLinks": "Copyright",
-    "versionDetails": "Dernière date de mise à jour : <span class = 'gn-version'>xxx (v{{version}})</span>"
+    "versionDetails": "Dernière date de mise à jour : <span class = 'gn-version'>xxx (v{{version}})</span>",
+    "topics": "Thèmes ISO",
+    "browseTypes": "Types de ressource"
 }

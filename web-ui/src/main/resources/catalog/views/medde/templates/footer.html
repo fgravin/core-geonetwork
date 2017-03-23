@@ -1,18 +1,22 @@
 <ul class="nav navbar-nav">
   <li class="gn-footer-text">
-    <span>Dernière date de mise à jour: xx/xx/2017 (v{{info['system/platform/version']}})</span>
+    <span data-translate=""
+          data-translate-values="{platform: '{{info['system/platform/name']}}', version: '{{info['system/platform/version']}}', subversion: '{{info['system/platform/subVersion']}}'}">
+      versionDetails</span>
   </li>
   <li>
-    <a href="mailto:Psi1.Psi.Spssi.Sg@developpement-durable.gouv.fr?Subject=[Géo-IDE Catalogue] Demande d'informations" target="_top">Contact</a>
+    <a href="mailto:Psi1.Psi.Spssi.Sg@developpement-durable.gouv.fr?Subject=[Géo-IDE Catalogue] Demande d'informations"
+    target="_top" data-translate>contactUs</a>
   </li>
   <li>
-    <a href="http://catalogue.geo-ide.developpement-durable.gouv.fr/doc/reglementation/mentions_legales/mentions_legales.html" target="_blank">Mentions Légales</a>
+    <a href="http://catalogue.geo-ide.developpement-durable.gouv.fr/doc/reglementation/mentions_legales/mentions_legales.html"
+    target="_blank" data-translate>legalInfo</a>
   </li>
   <li class="gn-footer-text">
     <span>|</span>
   </li>
   <li class="gn-footer-text">
-    <span>Copyright:</span>
+    <span>{{'copyrightLinks' | translate}}:</span>
   </li>
   <li>
     <a href="http://www.developpement-durable.gouv.fr/" target="_blank">www.developpement-durable.gouv.fr</a>

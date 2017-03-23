@@ -1,0 +1,9 @@
+{
+    "onlineHelp": "Get Help",
+    "homePage": "Home Page",
+    "legalInfo": "Legal",
+    "contactUs": "Contact Us",
+    "lastUpdateTime": "",
+    "copyrightLinks": "Copyright",
+    "versionDetails": "Last Update Time: <span class = 'gn-version'>xxx (v{{version}})</span>"
+}

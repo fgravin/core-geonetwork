@@ -212,6 +212,8 @@
             $scope.browse = 'inspire';
           } else if ($scope.searchInfo.facet['topicCats'].length > 0) {
             $scope.browse = 'topics';
+          } else if ($scope.searchInfo.facet['types'].length > 0) {
+            $scope.browse = 'types';
           //} else if ($scope.searchInfo.facet['categories'].length > 0) {
           //  $scope.browse = 'cat';
           }

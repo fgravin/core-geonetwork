@@ -25,6 +25,8 @@
 
   goog.provide('gn_search_default_config');
 
+  goog.require('c2cGenerateIgnLayer');
+
   var module = angular.module('gn_search_default_config', []);
 
   module.value('gnTplResultlistLinksbtn',
@@ -117,11 +119,22 @@
             view: new ol.View(mapsConfig)
           });
 
+
           var searchMap = new ol.Map({
             controls:[],
-            layers: [new ol.layer.Tile({
-              source: new ol.source.OSM()
-            })],
+            layers: [
+              new ol.layer.Group({
+                layers: [
+                  c2cGenerateIgnLayer('ORTHOIMAGERY.ORTHOPHOTOS'),
+                  c2cGenerateIgnLayer(
+                    'GEOGRAPHICALGRIDSYSTEMS.MAPS', undefined, undefined, 4800)
+                  // c2cGenerateIgnLayer(
+                  //   'GEOGRAPHICALNAMES.NAMES', 'image/png', null, 4800),
+                  // c2cGenerateIgnLayer(
+                  //   'ADMINISTRATIVEUNITS.BOUNDARIES', 'image/png', undefined, 4800)
+                  ]
+                })
+            ],
             view: new ol.View(angular.extend({}, mapsConfig))
           });
 

@@ -208,7 +208,7 @@
 
           // Set the default template to use
           searchSettings.resultTemplate =
-              searchSettings.resultViewTpls[0].tplUrl;
+            '../../catalog/views/medde/partials/grid.html';
 
           // Set custom config in gnSearchSettings
           angular.extend(searchSettings, {

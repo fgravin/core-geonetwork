@@ -8,5 +8,7 @@
     "versionDetails": "Dernière date de mise à jour : <span class = 'gn-version'>xxx (v{{version}})</span>",
     "topics": "Thèmes ISO",
     "topicCats": "Thèmes ISO",
-    "browseTypes": "Types de ressource"
+    "browseTypes": "Types de ressource",
+    "orgNames": "Organisations",
+    "listOfCategories": "Thèmes"
 }

@@ -1,12 +1,67 @@
-// hide certain facets in search resultsCount
-.gn-search-facet .gn-facet-list {
-  /*
-  .gn-facet-serviceTypes, .gn-facet-formats, .gn-facet-status,
-  .gn-facet-denominators, .gn-facet-orgNames, .gn-facet-spatialRepresentationTypes {
-    display: none;
+// Overload styles to allow metadata display on 3 columns
+
+ul.gn-resultview {
+
+  li.gn-grid {
+    min-width: 260px;
+
+    h3 {
+      a {
+        font-size: 65%;
+      }
+    }
+
+    .gn-md-title {
+      min-height: 4.6em;
+      max-height: 4.6em;
+
+      .gn-icon-dataset { color: #4167ff; }
+      .gn-icon-featureCatalog { color: #ffa500; }
+      .gn-icon-series { color: #ff6f6f; }
+      [class^="gn-icon-service-view"] { color: green; }
+    }
+
+    .gn-md-details {
+      position: absolute;
+      right: 12px;
+      bottom: 6px;
+      max-height: 46px;
+      max-width: calc(~"100% - 140px");
+
+      p {
+        max-height: 1.2em;
+        text-overflow: ellipsis;
+        margin: 0px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    .gn-md-thumbnail {
+      width: 100px;
+      height: 133px;
+      .gn-status {
+        top: 122px;
+      }
+    }
+
+    .gn-md-links {
+      right: auto;
+      left: 9px;
+      width: 120px;
+
+      .btn {
+        margin-right: 6px;
+      }
+    }
   }
-  */
-  & > .gn-facet:not(.gn-facet-types):not(.gn-facet-topicCats):not(.gn-facet-keywords):not(.gn-facet-sourceCatalog):not(.gn-facet-createDateYears) {
-    display: none;
+}
+
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {
+
+  ul.gn-resultview li.gn-grid {
+    width: calc(~"33.33% - 15px");
   }
 }

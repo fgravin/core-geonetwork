@@ -88,6 +88,33 @@
         }
       };
 
+      $scope.typeOptions = {
+        mode: 'remote',
+        remote: {
+          url: suggestService.getUrl('QUERY', 'type', 'STARTSWITHFIRST'),
+          filter: suggestService.bhFilter,
+          wildcard: 'QUERY'
+        }
+      };
+
+      $scope.inspirethemeOptions = {
+        mode: 'remote',
+        remote: {
+          url: suggestService.getUrl('QUERY', 'inspiretheme', 'STARTSWITHFIRST'),
+          filter: suggestService.bhFilter,
+          wildcard: 'QUERY'
+        }
+      };
+
+      $scope.topicCatOptions = {
+        mode: 'remote',
+        remote: {
+          url: suggestService.getUrl('QUERY', 'topicCat', 'STARTSWITHFIRST'),
+          filter: suggestService.bhFilter,
+          wildcard: 'QUERY'
+        }
+      };
+
       $scope.categoriesOptions = {
         mode: 'prefetch',
         promise: (function() {
@@ -97,8 +124,8 @@
                 var res = [];
                 for (var i = 0; i < data.length; i++) {
                   res.push({
-                    id: data[i].name,
-                    name: data[i].label.eng
+                    id: data[i].id,
+                    name: data[i].label.eng || data[i].name
                   });
                 }
                 defer.resolve(res);

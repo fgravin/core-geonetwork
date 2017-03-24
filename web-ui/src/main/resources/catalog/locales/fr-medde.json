@@ -14,5 +14,6 @@
     "orgName": "Organisation",
     "listOfCategories": "Thèmes",
     "recordsCreatedTheLast": "Mise à jour",
-    "resourceType": "Type de ressource"
+    "resourceType": "Type de ressource",
+    "viewInMap": "Visualiser"
 }

@@ -1,4 +1,8 @@
-// Overload styles to allow metadata display on 3 columns
+// type icon colors
+@dataset-icon-color: #4167ff;
+@featurecat-icon-color: #ffa500;
+@series-icon-color: #ff6f6f;
+@service-icon-color: green;
 
 ul.gn-resultview {
 
@@ -12,13 +16,13 @@ ul.gn-resultview {
     }
 
     .gn-md-title {
-      min-height: 4.6em;
-      max-height: 4.6em;
+      min-height: 70px;
+      max-height: 70px;
 
-      .gn-icon-dataset { color: #4167ff; }
-      .gn-icon-featureCatalog { color: #ffa500; }
-      .gn-icon-series { color: #ff6f6f; }
-      [class^="gn-icon-service-view"] { color: green; }
+      .gn-icon-dataset { color: @dataset-icon-color; }
+      .gn-icon-featureCatalog { color: @featurecat-icon-color; }
+      .gn-icon-series { color: @series-icon-color; }
+      [class^="gn-icon-service-view"] { color: @service-icon-color; }
     }
 
     .gn-md-details {
@@ -39,7 +43,7 @@ ul.gn-resultview {
 
     .gn-md-thumbnail {
       width: 100px;
-      height: 133px;
+      height: 128px;
       .gn-status {
         top: 122px;
       }
@@ -48,9 +52,9 @@ ul.gn-resultview {
     .gn-md-links {
       right: auto;
       left: 9px;
-      width: 120px;
+      width: 130px;
 
-      .btn {
+      .btn:not(:last-child) {
         margin-right: 6px;
       }
     }

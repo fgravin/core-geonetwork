@@ -56,59 +56,86 @@
 
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
               <h3 data-translate="">what</h3>
-              <div class="form-group">
-                <label for="categoriesF"
-                       class="col-md-4 col-sm-12 control-label"
-                       data-translate="">categories</label>
 
-                <div class="col-sm-8">
-                  <input type="text" id="categoriesF" value=""
-                         class="form-control"
-                         gn-typeahead="categoriesOptions"
-                         gn-values="searchObj.params._cat"/>
+              <div class="col-md-12 col-lg-6">
+                <div class="form-group">
+                  <label for="orgNameF"
+                         class="col-sm-4 control-label"
+                         data-translate="">orgName</label>
+
+                  <div class="col-sm-8">
+                    <input type="text" id="orgNameF" value=""
+                           class="form-control"
+                           gn-values="searchObj.params.orgName"
+                           gn-typeahead="orgNameOptions"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="typeF"
+                         class="col-sm-4 control-label"
+                         data-translate="">resourceType</label>
+
+                  <div class="col-sm-8">
+                    <input type="text" id="typeF" value=""
+                           class="form-control"
+                           gn-values="searchObj.params.type"
+                           gn-typeahead="typeOptions"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="keywordsF"
+                         class="col-sm-4 control-label"
+                         data-translate="">keywords</label>
+
+                  <div class="col-sm-8">
+                    <input type="text" id="keywordsF" value=""
+                           class="form-control"
+                           gn-values="searchObj.params.keyword"
+                           gn-typeahead="keywordsOptions"/>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="keywordsF"
-                       class="col-md-4 col-sm-12 control-label"
-                       data-translate="">keywords</label>
 
-                <div class="col-sm-8">
-                  <input type="text" id="keywordsF" value=""
-                         class="form-control"
-                         gn-values="searchObj.params.keyword"
-                         gn-typeahead="keywordsOptions"/>
+              <div class="col-md-12 col-lg-6">
+                <div class="form-group">
+                  <label for="topicCatF"
+                         class="col-sm-4 control-label"
+                         data-translate="">topicCat</label>
+
+                  <div class="col-sm-8">
+                    <input type="text" id="topicCatF" value=""
+                           class="form-control"
+                           gn-values="searchObj.params.topicCat"
+                           gn-typeahead="topicCatOptions"/>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="orgNameF"
-                       class="col-md-4 col-sm-12 control-label"
-                       data-translate="">orgName</label>
+                <div class="form-group">
+                  <label for="inspirethemeF"
+                         class="col-sm-4 control-label"
+                         data-translate="">inspiretheme</label>
 
-                <div class="col-sm-8">
-                  <input type="text" id="orgNameF" value=""
-                         class="form-control"
-                         gn-values="searchObj.params.orgName"
-                         gn-typeahead="orgNameOptions"/>
+                  <div class="col-sm-8">
+                    <input type="text" id="inspirethemeF" value=""
+                           class="form-control"
+                           gn-values="searchObj.params.inspiretheme"
+                           gn-typeahead="inspirethemeOptions"/>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
               <h3 data-translate="">when</h3>
-              <div data-gn-period-chooser="resourcesCreatedTheLast"
+              <!-- <div data-gn-period-chooser="resourcesCreatedTheLast"
                    data-date-from="searchObj.params.creationDateFrom"
                    data-date-to="searchObj.params.creationDateTo">
-              </div>
+              </div> -->
 
               <div data-gn-period-chooser="recordsCreatedTheLast"
                    data-date-from="searchObj.params.dateFrom"
                    data-date-to="searchObj.params.dateTo">
               </div>
-            </div>
-            <div class="col-md-5">
-
             </div>
           </div>
         </div>

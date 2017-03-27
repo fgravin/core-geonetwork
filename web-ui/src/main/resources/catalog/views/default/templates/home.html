@@ -79,35 +79,28 @@
         <div class="panel-heading row">
           <span data-translate="">browseBy</span>
 
-          <div class="c2c-filter" data-ng-if="searchInfo.facet['inspireThemes'].length > 0">
-            <label>
+          <div class="c2c-filter">
+            <label data-ng-show="searchInfo.facet['inspireThemes'].length > 0">
               <input type="radio" name="browse" value="inspire" data-ng-model="browse"/>
               <span data-translate="">inspireThemes</span>
             </label>
           </div>
 
-          <div class="c2c-filter" data-ng-if="searchInfo.facet['topicCats'].length > 0">
-            <label>
+          <div class="c2c-filter">
+            <label data-ng-show="searchInfo.facet['topicCats'].length > 0">
               <input type="radio" name="browse" value="topics" data-ng-model="browse"/>
               <span data-translate="">topics</span>
             </label>
           </div>
 
-          <div class="c2c-filter" data-ng-if="searchInfo.facet['types'].length > 0">
-            <label>
+          <div class="c2c-filter">
+            <label data-ng-show="searchInfo.facet['types'].length > 0">
               <input type="radio" name="browse" value="types" data-ng-model="browse"/>
               <span data-translate="">browseTypes</span>
             </label>
           </div>
         </div>
-        <!--
-        <label
-          data-ng-show="searchInfo.facet['inspireThemes'].length > 0 && searchInfo.facet['topicCats'].length == 0"><span
-          data-translate="">inspireThemes</span></label>
-        <label
-          data-ng-show="searchInfo.facet['topicCats'].length > 0 && searchInfo.facet['inspireThemes'].length == 0"><span
-          data-translate="">topics</span></label>
-        -->
+        
         <div class="panel-body">
 
           <span id="chips-card" data-ng-repeat="(key, facet) in searchInfo.facet['topicCats']"

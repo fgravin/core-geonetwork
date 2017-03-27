@@ -17,8 +17,9 @@ ul.gn-resultview {
     }
 
     .gn-md-title {
-      min-height: 70px;
-      max-height: 70px;
+      min-height: 63px;
+      max-height: 63px;
+      margin-bottom: 3px;
 
       .gn-icon-dataset { color: @dataset-icon-color; }
       .gn-icon-featureCatalog { color: @featurecat-icon-color; }
@@ -26,12 +27,33 @@ ul.gn-resultview {
       [class^="gn-icon-service"] { color: @service-icon-color; }
     }
 
+    .gn-md-abstract {
+      height: 91px;
+    }
+
+    .gn-md-relations {
+      position: absolute;
+      left: 127px;
+      top: 200px;
+      max-width: calc(~"100% - 138px");
+
+      .btn-group {
+        max-width: 100%;
+
+        button {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          max-width: 100%;
+        }
+      }
+    }
+
     .gn-md-details {
       position: absolute;
       right: 12px;
       bottom: 6px;
       max-height: 46px;
-      max-width: calc(~"100% - 140px");
+      max-width: calc(~"100% - 190px");
 
       p {
         max-height: 1.2em;
@@ -53,9 +75,12 @@ ul.gn-resultview {
     .gn-md-links {
       right: auto;
       left: 9px;
-      width: 130px;
+      bottom: 5px;
+      width: 170px;
+      display: flex;
+      flex-direction: row;
 
-      .btn:not(:last-child) {
+      & > *:not(:last-child) {
         margin-right: 6px;
       }
     }

@@ -131,7 +131,7 @@
     <summaryType name="details" format="DIMENSION">
       <item facet="type" translator="codelist:gmd:MD_ScopeCode"/>
       <item facet="topicCat" translator="codelist:gmd:MD_TopicCategoryCode" max="20"/>
-      <item facet="inspireThemeURI" sortBy="value" sortOrder="asc" max="35"
+      <item facet="inspireTheme" sortBy="value" sortOrder="asc" max="35"
             translator="term:http://geonetwork-opensource.org/inspire-theme"/>
       <item facet="keyword" max="15"/>
       <item facet="orgName" max="25"/>
@@ -210,8 +210,10 @@
     </summaryType>
     <summaryType name="suggestions">
       <item facet="keyword"/>
+      <item facet="topicCat" translator="codelist:gmd:MD_TopicCategoryCode" max="20"/>
+      <item facet="inspireTheme" sortBy="value" sortOrder="asc" max="35"
+            translator="term:http://geonetwork-opensource.org/inspire-theme"/>
       <item facet="title" sortOrder="desc" max="100"/>
-      <item facet="inspireTheme" sortBy="value" sortOrder="asc"/>
       <item facet="denominator" sortBy="value" sortOrder="asc"/>
       <item facet="spatialRepresentationType"
             translator="codelist:gmd:MD_SpatialRepresentationTypeCode"/>

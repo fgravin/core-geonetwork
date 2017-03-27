@@ -22,5 +22,6 @@
     "childrenMetadata": "Liens vers les fiches de données enfants",
     "parentMetadata": "Liens vers les fiches de données parents",
     "geographicalExtent": "Etendue géographique",
-    "spatialReferenceSystem": "Système de référence"
+    "spatialReferenceSystem": "Système de référence",
+    "childrenMetadataShort": "Séries de données associées"
 }

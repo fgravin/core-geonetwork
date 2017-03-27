@@ -10,5 +10,6 @@
     "associatedServices": "OGC Services",
     "associatedDatasets": "Associated Datasets",
     "geographicalExtent": "Geographical Extent",
-    "spatialReferenceSystem": "Reference Projection"
+    "spatialReferenceSystem": "Reference Projection",
+    "childrenMetadataShort": "Associated Datasets"
 }

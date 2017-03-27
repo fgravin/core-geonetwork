@@ -60,10 +60,9 @@
     </div>
 
     <!--start middle row-->
-    <div title="{{(md.abstract || md.defaultAbstract) | striptags}}"
-         data-ng-click="openRecord($index, md, searchResults.records)">
+    <div title="{{(md.abstract || md.defaultAbstract) | striptags}}">
       <!-- Thumbnail -->
-      <div class="gn-md-thumbnail">
+      <div class="gn-md-thumbnail" data-ng-click="openRecord($index, md, searchResults.records)">
         <img class="gn-img-thumbnail"
              data-ng-src="{{md.getThumbnails().list[0].url}}"
              data-ng-if="md.getThumbnails().list[0].url"/>
@@ -75,12 +74,17 @@
         </div>
       </div>
 
-      <div style="float:left; display:block; width: calc(100% - 162px)">
+      <div class="">
 
-        <div class="text-justify gn-md-abstract ellipsis">
+        <div class="text-justify gn-md-abstract ellipsis" data-ng-click="openRecord($index, md, searchResults.records)">
           <div>
             <p>{{(md.abstract || md.defaultAbstract) | striptags}}</p>
           </div>
+        </div>
+
+        <div class="gn-md-relations pull-left" ng-if="::md.type == 'series'">
+          <div gn-related="::md" types="children"
+               template="../../catalog/views/medde/partials/related-results.html"></div>
         </div>
 
         <div class="row gn-md-details">

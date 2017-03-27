@@ -4,6 +4,7 @@
 @series-icon-color: #ff6f6f;
 @service-icon-color: green;
 
+// search results customization
 ul.gn-resultview {
 
   li.gn-grid {
@@ -22,7 +23,7 @@ ul.gn-resultview {
       .gn-icon-dataset { color: @dataset-icon-color; }
       .gn-icon-featureCatalog { color: @featurecat-icon-color; }
       .gn-icon-series { color: @series-icon-color; }
-      [class^="gn-icon-service-view"] { color: @service-icon-color; }
+      [class^="gn-icon-service"] { color: @service-icon-color; }
     }
 
     .gn-md-details {
@@ -61,11 +62,28 @@ ul.gn-resultview {
   }
 }
 
-
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: @screen-lg-min) {
 
   ul.gn-resultview li.gn-grid {
     width: calc(~"33.33% - 15px");
   }
+}
+
+
+// record view customization
+.gn-md-view {
+  h1 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .gn-icon-dataset { color: @dataset-icon-color; }
+  .gn-icon-featureCatalog { color: @featurecat-icon-color; }
+  .gn-icon-series { color: @series-icon-color; }
+  [class^="gn-icon-service"] { color: @service-icon-color; }
 }

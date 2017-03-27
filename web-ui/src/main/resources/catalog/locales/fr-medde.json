@@ -15,5 +15,12 @@
     "listOfCategories": "Thèmes",
     "recordsCreatedTheLast": "Mise à jour",
     "resourceType": "Type de ressource",
-    "viewInMap": "Visualiser"
+    "viewInMap": "Visualiser",
+    "downloadsAndResources": "Téléchargements simples",
+    "associatedServices": "Services OGC associés",
+    "associatedDatasets": "Liens vers les jeux de données associés",
+    "childrenMetadata": "Liens vers les fiches de données enfants",
+    "parentMetadata": "Liens vers les fiches de données parents",
+    "geographicalExtent": "Etendue géographique",
+    "spatialReferenceSystem": "Système de référence"
 }

@@ -6,5 +6,9 @@
     "lastUpdateTime": "",
     "copyrightLinks": "Copyright",
     "versionDetails": "Last Update Time: <span class = 'gn-version'>xxx (v{{version}})</span>",
-    "viewInMap": "Visualize"
+    "viewInMap": "Visualize",
+    "associatedServices": "OGC Services",
+    "associatedDatasets": "Associated Datasets",
+    "geographicalExtent": "Geographical Extent",
+    "spatialReferenceSystem": "Reference Projection"
 }

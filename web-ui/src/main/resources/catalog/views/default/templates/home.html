@@ -75,26 +75,26 @@
   <!-- début personnalisation MEDDE -->
   <div class="row" data-ng-show="searchInfo.count > 0">
     <div class="col-sm-12" data-ng-show="browse !== ''">
-      <div class="panel panel-default">
-        <div class="panel-heading form-inline">
+      <div class="panel panel-default c2c-home-filters">
+        <div class="panel-heading row">
           <span data-translate="">browseBy</span>
 
-          <div class="radio">
-            <label data-ng-show="searchInfo.facet['inspireThemes'].length > 0">
+          <div class="c2c-filter" data-ng-if="searchInfo.facet['inspireThemes'].length > 0">
+            <label>
               <input type="radio" name="browse" value="inspire" data-ng-model="browse"/>
               <span data-translate="">inspireThemes</span>
             </label>
           </div>
 
-          <div class="radio">
-            <label data-ng-show="searchInfo.facet['topicCats'].length > 0">
+          <div class="c2c-filter" data-ng-if="searchInfo.facet['topicCats'].length > 0">
+            <label>
               <input type="radio" name="browse" value="topics" data-ng-model="browse"/>
               <span data-translate="">topics</span>
             </label>
           </div>
 
-          <div class="radio">
-            <label data-ng-show="searchInfo.facet['types'].length > 0">
+          <div class="c2c-filter" data-ng-if="searchInfo.facet['types'].length > 0">
+            <label>
               <input type="radio" name="browse" value="types" data-ng-model="browse"/>
               <span data-translate="">browseTypes</span>
             </label>
@@ -109,6 +109,7 @@
           data-translate="">topics</span></label>
         -->
         <div class="panel-body">
+
           <span id="chips-card" data-ng-repeat="(key, facet) in searchInfo.facet['topicCats']"
                 class="col-xs-6 col-sm-4 col-lg-3" data-ng-show="browse === 'topics'">
               <div class="badge-icon">
@@ -126,6 +127,7 @@
                 </a>
               </div>
           </span>
+
           <span id="chips-card"
                 data-ng-repeat="(key, facet) in searchInfo.facet['inspireThemesURI'] track by $index"
                 class="col-xs-6 col-sm-6 col-lg-4" data-ng-show="browse === 'inspire'">
@@ -146,10 +148,33 @@
                 </a>
               </div>
           </span>
+
           <span id="chips-card"
                 data-ng-repeat="(key, facet) in searchInfo.facet['types']"
-                data-ng-show="facet['@label'] && browse === 'types'"
+                data-ng-show="facet['@label'] && browse === 'types' && facet['@name'] !== 'featureCatalog'"
                 class="col-xs-6 col-sm-6 col-lg-4">
+            <div class="badge-icon">
+              <a data-ng-href="#/search?facet.q=type%2F{{facet['@name']}}">
+                <span class="badge-result badge-result-type">
+                  <i class="fa fa-3x fa-table gn-icon gn-icon-{{facet['@name']}}"></i>
+                </span>
+              </a>
+            </div>
+            <div class="badge-text">
+              <a title="{{facet['@label']}}"
+                 data-ng-href="#/search?facet.q=type%2F{{facet['@name']}}">
+                <span class="gn-icon-label">{{facet['@label']}}</span><br>
+                <span class="badge">{{facet['@count']}}</span>
+              </a>
+            </div>
+          </span>
+
+          <!-- feature catalog must appear in the 'topicCats' tab -->
+          <span id="chips-card"
+                data-ng-if="browse === 'topics'"
+                data-ng-repeat="(key, facet) in searchInfo.facet['types']"
+                data-ng-show="facet['@name'] === 'featureCatalog'"
+                class="col-xs-6 col-sm-4 col-lg-3">
             <div class="badge-icon">
               <a data-ng-href="#/search?facet.q=type%2F{{facet['@name']}}">
                 <span class="badge-result badge-result-type">

@@ -1,6 +1,9 @@
 #!groovy
 
 node {
+  stage('Docker pull the maven image') {
+    sh 'docker pull maven:3-jdk-8'
+  }
   withDockerContainer(image: 'maven:3-jdk-8') {
     sshagent('medde-deploy-key') {
       stage('Configuring SSH') {

@@ -6,7 +6,7 @@ node {
   }
   withDockerContainer(image: 'maven:3-jdk-8') {
     stage('Getting the sources') {
-      git url: 'git@github.com:camptocamp/medde_geonetwork3.git', credentialsId: 'medde-deploy-key'
+      git url: 'git@github.com:camptocamp/medde_geonetwork3.git', branch: 'medde', credentialsId: 'medde-deploy-key'
       sh 'git submodule update --init --recursive'
     }
     stage('First build without test') {

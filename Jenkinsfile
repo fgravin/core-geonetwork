@@ -13,7 +13,7 @@ node {
       sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo -DskipTests'''
     }
     stage('Second build with tests') {
-      sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo'''
+      sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo -fae'''
     }
     stage('Archive artifacts') {
       archive 'web/target/*.war'

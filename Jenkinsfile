@@ -5,7 +5,7 @@ node {
     sh 'docker pull maven:3-jdk-8'
   }
   withDockerContainer(image: 'maven:3-jdk-8') {
-    sshagent('medde-deploy-key') {
+    sshagent([ 'medde-deploy-key' ]) {
       stage('Configuring SSH') {
         sh "ssh -oStrictHostKeyChecking=no git@github.com || true"
       }
@@ -20,7 +20,7 @@ node {
         sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo'''
       }
       stage('Archive artifacts') {
-        archive 'target/*.war,target/*.zip'
+        archive 'web/target/*.war'
       }
       stage("Saving tests results") {
         junit '**/target/surefire-reports/TEST-*.xml'

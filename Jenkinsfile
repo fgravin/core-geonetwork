@@ -24,7 +24,7 @@ node {
     withCredentials([file(credentialsId: 'gdrive-georchestra.properties',
           variable: 'FILE')]) {
       sh """docker run --rm -v $FILE:/gdrive.properties              \
-            -v `pwd`/target/web/geonetwork.war:/geonetwork.war       \
+            -v `pwd`/web/target/geonetwork.war:/geonetwork.war       \
             -e FOLDER_NAME='livraison-medde'                         \
             -e SOURCE_FILE='/geonetwork.war'                         \
             -e TARGET_FILENAME='geonetwork.war'                      \

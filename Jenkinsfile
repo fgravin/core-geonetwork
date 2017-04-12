@@ -14,7 +14,7 @@ node {
       sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo -DskipTests'''
     }
     stage('Second build with tests') {
-      sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo -fae'''
+      sh '''mvn clean install -B -Dmaven.repo.local=./.m2_repo -fn'''
     }
    stage("Saving tests results") {
       junit '**/target/surefire-reports/TEST-*.xml'

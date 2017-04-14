@@ -653,6 +653,7 @@
           <packagingExcludes>
             xml/schemas/**,
             WEB-INF/data/**,
+            WEB-INF/classes/setup/**,
             catalog/lib/style/bootstrap/docs/**,
             catalog/lib/style/bootstrap/fonts/**,
             catalog/lib/style/bootstrap/grunt/**,

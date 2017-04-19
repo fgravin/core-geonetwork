@@ -741,7 +741,7 @@
         </property>
       </activation>
       <properties>
-        <env>prod</env>
+        <env>medde</env>
       </properties>
     </profile>
     <profile>

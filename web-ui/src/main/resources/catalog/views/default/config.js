@@ -223,6 +223,12 @@
           searchSettings.resultTemplate =
             '../../catalog/views/medde/partials/grid.html';
 
+          // hide feature catalogs (MEDDE)
+          searchSettings.hiddenParams = {
+            type: 'dataset or series or publication or nonGeographicDataset ' +
+              'or feature or map or service'
+          };
+
           // Set custom config in gnSearchSettings
           angular.extend(searchSettings, {
             viewerMap: viewerMap,

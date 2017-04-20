@@ -317,7 +317,8 @@
         params: {
           'facet.q': '',
           resultType: gnSearchSettings.facetsSummaryType || 'details'
-        }
+        },
+        hiddenParams: gnSearchSettings.hiddenParams
       }, gnSearchSettings.sortbyDefault);
 
     }]);

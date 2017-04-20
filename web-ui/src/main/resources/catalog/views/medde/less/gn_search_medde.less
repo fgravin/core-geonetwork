@@ -1,10 +1,12 @@
-@import "../../../lib/style/bootstrap/less/variables.less";
+@import "../../../lib/style/bootstrap/less/variables";
+@import "../../../lib/style/font-awesome/less/variables";
+@import "../../../lib/style/font-awesome/less/mixins";
 
 // type icon colors
 @dataset-icon-color: #4167ff;
 @featurecat-icon-color: #ffa500;
 @series-icon-color: #ff6f6f;
-@service-icon-color: green;
+@service-icon-color: #14c314;
 
 // search results customization
 ul.gn-resultview {
@@ -26,7 +28,10 @@ ul.gn-resultview {
       .gn-icon-dataset { color: @dataset-icon-color; }
       .gn-icon-featureCatalog { color: @featurecat-icon-color; }
       .gn-icon-series { color: @series-icon-color; }
-      [class^="gn-icon-service"] { color: @service-icon-color; }
+      [class*='gn-icon-service'] {
+        color: @service-icon-color;
+        &:before { content: @fa-var-cog }
+      }
     }
 
     .gn-md-abstract {
@@ -112,5 +117,8 @@ ul.gn-resultview {
   .gn-icon-dataset { color: @dataset-icon-color; }
   .gn-icon-featureCatalog { color: @featurecat-icon-color; }
   .gn-icon-series { color: @series-icon-color; }
-  [class^="gn-icon-service"] { color: @service-icon-color; }
+  [class*='gn-icon-service'] {
+    color: @service-icon-color;
+    &:before { content: @fa-var-cog }
+  }
 }

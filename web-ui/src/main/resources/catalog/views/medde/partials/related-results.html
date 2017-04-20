@@ -6,7 +6,7 @@
     <span>{{ 'childrenMetadataShort' | translate }}</span>
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+  <ul class="dropdown-menu" role="menu">
     <li data-ng-repeat="r in ::relations.children track by $index">
       <a href="#/metadata/{{r.id}}"
          title="{{r.title | gnLocalized: lang}}">

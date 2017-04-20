@@ -23,5 +23,8 @@
     "parentMetadata": "Liens vers les fiches de données parents",
     "geographicalExtent": "Etendue géographique",
     "spatialReferenceSystem": "Système de référence",
-    "childrenMetadataShort": "Séries de données associées"
+    "childrenMetadataShort": "Séries de données associées",
+    "catalogTitle": "Catalogue Interministériel de Données Géographiques",
+    "catalogSubTitle": "Recherchez et accédez en quelques clics au patrimoine de données géographiques catalogué dans l'infrastructure de données géographiques (IDG) interministérielle <a href=\"#\">Géo-IDE</a>.",
+    "catalogIntroduction": "L'IDG Géo-IDE est mise à disposition des services des ministères de l'écologie, de l'agriculture et du logement et des directions départementales interministérielles (DDT, DDCS, DDPP) et préféctures.<br/><a href=\"#\">Lire la suite</a>"
 }

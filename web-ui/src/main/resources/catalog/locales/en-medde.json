@@ -6,10 +6,17 @@
     "lastUpdateTime": "",
     "copyrightLinks": "Copyright",
     "versionDetails": "Last Update Time: <span class = 'gn-version'>xxx (v{{version}})</span>",
+    "resourceType": "Resource Type",
     "viewInMap": "Visualize",
     "associatedServices": "OGC Services",
     "associatedDatasets": "Associated Datasets",
     "geographicalExtent": "Geographical Extent",
     "spatialReferenceSystem": "Reference Projection",
-    "childrenMetadataShort": "Associated Datasets"
+    "downloadsAndResources": "Downloads and Resources",
+    "childrenMetadata": "Links to Children Metadata",
+    "parentMetadata": "Links to Parent Metadata",
+    "childrenMetadataShort": "Associated Datasets",
+    "catalogTitle": "Catalogue Interministériel de Données Géographiques",
+    "catalogSubTitle": "Recherchez et accédez en quelques clics au patrimoine de données géographiques catalogué dans l'infrastructure de données géographiques (IDG) interministérielle <a href=\"#\">Géo-IDE</a>.",
+    "catalogIntroduction": "L'IDG Géo-IDE est mise à disposition des services des ministères de l'écologie, de l'agriculture et du logement et des directions départementales interministérielles (DDT, DDCS, DDPP) et préféctures.<br/><a href=\"#\">Lire la suite</a>"
 }

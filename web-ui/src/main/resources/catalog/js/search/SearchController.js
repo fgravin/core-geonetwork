@@ -44,8 +44,9 @@
     'suggestService',
     'gnAlertService',
     'gnSearchSettings',
+    '$interpolate',
     function($scope, $q, $http, suggestService,
-             gnAlertService, gnSearchSettings) {
+             gnAlertService, gnSearchSettings, $interpolate) {
 
       /** Object to be shared through directives and controllers */
       $scope.searchObj = {
@@ -94,6 +95,14 @@
           url: suggestService.getUrl('QUERY', 'type', 'STARTSWITHFIRST'),
           filter: suggestService.bhFilter,
           wildcard: 'QUERY'
+        },
+        config: {
+          templates: {
+            suggestion: function (item) {
+              return $interpolate('<div>' +
+                '{{ "' + item.name + '" | translate }}</div>')($scope);
+            }
+          }
         }
       };
 
@@ -104,6 +113,17 @@
           filter: suggestService.bhFilter,
           wildcard: 'QUERY'
         }
+        // TODO: get theme id from suggest service to display icons?
+        // config: {
+        //   templates: {
+        //     suggestion: function (item) {
+        //       return $interpolate('<div>' +
+        //         '<i class="fa" title="Agriculture">' +
+        //           '<span class="fa gn-icon iti-13"></span>' +
+        //         '</i> ' + item.name + '</div>')($scope);
+        //     }
+        //   }
+        // }
       };
 
       $scope.topicCatOptions = {
@@ -112,6 +132,16 @@
           url: suggestService.getUrl('QUERY', 'topicCat', 'STARTSWITHFIRST'),
           filter: suggestService.bhFilter,
           wildcard: 'QUERY'
+        },
+        config: {
+          templates: {
+            suggestion: function (item) {
+              return $interpolate('<div>' +
+              '<i class="fa" title="{{ "' + item.name + '" | translate }}">' +
+                '<span class="fa gn-icon-' + item.name + '"></span>' +
+              '</i>&nbsp;{{ "' + item.name + '" | translate }}</div>')($scope);
+            }
+          }
         }
       };
 

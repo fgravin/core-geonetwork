@@ -228,6 +228,16 @@
         }
       });
 
+      // intermediate function for fetching layers on md
+      var getMdLayers = function (md) {
+        var layerTypes = gnSearchSettings.linkTypes['layers'];
+        var layers = [];
+        layerTypes.forEach(function (type) {
+          Array.prototype.push.apply(layers, md.getLinksByType(type));
+        });
+        return layers;
+      };
+
       $scope.resultviewFns = {
         addMdLayerToMap: function (link, md) {
 
@@ -241,8 +251,14 @@
               gnMap.feedLayerWithRelated(layer, link.group);
             }
           });
-      },
-        addAllMdLayersToMap: function (layers, md) {
+        },
+        mdHasLayers: function (md) {
+          if (!md) { return false; }
+          return getMdLayers(md).length > 0;
+        },
+        addAllMdLayersToMap: function (layers_, md) {
+          if (!md) { return false; }
+          var layers = layers_ || getMdLayers(md);
           angular.forEach(layers, function (layer) {
             $scope.resultviewFns.addMdLayerToMap(layer, md);
           });

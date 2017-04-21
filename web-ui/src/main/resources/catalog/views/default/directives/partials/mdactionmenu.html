@@ -117,9 +117,9 @@
         <span data-translate="">exportRDF</span>
       </a></li>
 
-      <li>
+      <li data-ng-show="resultviewFns.mdHasLayers(md)">
         <a data-ng-href=""
-               target="_blank">
+           data-ng-click="resultviewFns.addAllMdLayersToMap(null, md)">
           <i class="fa fa-globe"></i>&nbsp;
           <span data-translate="">viewInMap</span>
         </a>

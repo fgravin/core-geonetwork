@@ -21,14 +21,16 @@ node {
     }
   } // withDockerContainer
   stage("Publishing webapp onto GoogleDrive") {
-    withCredentials([file(credentialsId: 'gdrive-georchestra.properties',
-          variable: 'FILE')]) {
-      sh """docker run --rm -v $FILE:/gdrive.properties              \
-            -v `pwd`/web/target/geonetwork.war:/geonetwork.war       \
-            -e FOLDER_NAME='livraison-medde'                         \
-            -e SOURCE_FILE='/geonetwork.war'                         \
-            -e TARGET_FILENAME='geonetwork.war'                      \
-            pmauduit/google-drive-publisher"""
-    } // withCredentials
+    if (env.BRANCH_NAME == 'medde') {
+      withCredentials([file(credentialsId: 'gdrive-georchestra.properties',
+            variable: 'FILE')]) {
+        sh """docker run --rm -v $FILE:/gdrive.properties              \
+          -v `pwd`/web/target/geonetwork.war:/geonetwork.war       \
+          -e FOLDER_NAME='livraison-medde'                         \
+          -e SOURCE_FILE='/geonetwork.war'                         \
+          -e TARGET_FILENAME='geonetwork.war'                      \
+          pmauduit/google-drive-publisher"""
+      } // withCredentials
+    } // if
   } // stage
 } // node

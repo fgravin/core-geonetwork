@@ -205,7 +205,7 @@
             links: ['LINK', 'kml'],
             downloads: ['DOWNLOAD'],
             //layers:['OGC', 'kml'],
-            layers:['OGC'],
+            layers:['OGC:WMS'],
             maps: ['ows']
           };
 

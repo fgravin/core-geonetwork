@@ -10,15 +10,27 @@
   <ows-context:ResourceList>
     <ows-context:Layer name="{type=osm}"
                        group="Background layers"
-                       hidden="false"
+                       hidden="true"
                        opacity="1">
       <ows:Title>OpenStreetMap
       </ows:Title>
     </ows-context:Layer>
-    <ows-context:Layer name="{type=bing_aerial}"
+    <!-- <ows-context:Layer name="{type=bing_aerial}"
                        group="Background layers"
                        opacity="1">
       <ows:Title>Bing Aerial</ows:Title>
+    </ows-context:Layer> -->
+    <ows-context:Layer queryable="false"
+      name="{type=wmts,name=GEOGRAPHICALGRIDSYSTEMS.PLANIGN}"
+      hidden="false" opacity="1" group="Background layers">
+        <ows:Title xmlns:ows="http://www.opengis.net/ows">
+          Plan IGN
+        </ows:Title>
+        <ows-context:Server service="urn:ogc:serviceType:WMS">
+          <ows-context:OnlineResource
+            xlink:href="https://wxs.ign.fr/1tkdsjfeqm5f0cyfoo5rmbwv/geoportail/wmts?"
+            xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        </ows-context:Server>
     </ows-context:Layer>
     <ows-context:Layer name="{type=stamen,name=watercolor}"
                        group="Background layers"

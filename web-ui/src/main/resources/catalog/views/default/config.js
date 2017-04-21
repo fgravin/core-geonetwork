@@ -25,8 +25,6 @@
 
   goog.provide('gn_search_default_config');
 
-  goog.require('c2cGenerateIgnLayer');
-
   var module = angular.module('gn_search_default_config', []);
 
   module.value('gnTplResultlistLinksbtn',
@@ -122,22 +120,14 @@
 
           var searchMap = new ol.Map({
             controls:[],
-            layers: [
-              new ol.layer.Group({
-                layers: [
-                  c2cGenerateIgnLayer('ORTHOIMAGERY.ORTHOPHOTOS'),
-                  c2cGenerateIgnLayer(
-                    'GEOGRAPHICALGRIDSYSTEMS.MAPS', undefined, undefined, 4800)
-                  // c2cGenerateIgnLayer(
-                  //   'GEOGRAPHICALNAMES.NAMES', 'image/png', null, 4800),
-                  // c2cGenerateIgnLayer(
-                  //   'ADMINISTRATIVEUNITS.BOUNDARIES', 'image/png', undefined, 4800)
-                  ]
-                })
-            ],
-            view: new ol.View(angular.extend({}, mapsConfig))
+            view: new ol.View(angular.extend({}, mapsConfig)),
+            layers: []
           });
 
+          // MEDDE: ajout de la couche IGN géoportail sur la carte de recherche
+          gnMap.addWmtsFromScratch(searchMap,
+            'https://wxs.ign.fr/1tkdsjfeqm5f0cyfoo5rmbwv/wmts',
+            'GEOGRAPHICALGRIDSYSTEMS.PLANIGN');
 
           /** Facets configuration */
           searchSettings.facetsSummaryType = 'details';

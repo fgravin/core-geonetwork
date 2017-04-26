@@ -512,13 +512,8 @@
           <p data-ng-repeat="bbox in mdView.current.record.geoBox">
             <img class="gn-img-thumbnail img-thumbnail gn-img-extent"
                  data-ng-src="region.getmap.png?mapsrs=EPSG:3857&width=250&background={{background}}&geomsrs=EPSG:4326&geom={{mdView.current.record.getBoxAsPolygon($index)}}"/>
-          </p>
-
-          <p>
-          <ul>
-            <li>{{ 'geographicalExtent' | translate }}: {{ mdView.current.record.crs[0] }}</li>
-            <li>{{ 'spatialReferenceSystem' | translate }}: {{ mdView.current.record.crs[0] }}</li>
-          </ul>
+            <br />
+            {{ ::'geographicalExtent' | translate }}: {{ mdView.current.record.getBoxAsReadable($index) }} (EPSG:4326)
           </p>
         </section>
         </br>

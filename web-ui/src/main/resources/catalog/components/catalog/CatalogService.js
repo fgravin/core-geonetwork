@@ -699,6 +699,17 @@
           return null;
         }
       },
+      getBoxAsReadable: function(i) {
+        if (this.geoBox[i]) {
+          var coords = this.geoBox[i].split('|');
+          return coords[0] + ', ' +
+              coords[1] + ', ' +
+              coords[2] + ', ' +
+              coords[3];
+        } else {
+          return 'n/a';
+        }
+      },
       getOwnername: function() {
         if (this.userinfo) {
           var userinfo = this.userinfo.split('|');

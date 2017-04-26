@@ -128,9 +128,10 @@
         </div>
 
         <div data-gn-related="mdView.current.record"
+            ng-if="md.type == 'dataset'"
              data-template="../../catalog/views/medde/partials/related.html"
              data-user="user"
-             data-types="datasets"
+             data-types="associated|related|datasets|siblings"
              data-title="{{'associatedDatasets' | translate}}">
         </div>
 
@@ -395,6 +396,7 @@
         </table>
 
 
+        <!-- PERSONNALISATION MEDDE
         <div data-gn-related="mdView.current.record"
              data-user="user"
              data-types="fcats|related"
@@ -404,7 +406,7 @@
              data-user="user"
              data-types="siblings|associated|related"
              data-title="{{'siblings' | translate}}">
-        </div>
+        </div> -->
 
         <h2 data-translate="">metadataInformation</h2>
 

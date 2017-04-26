@@ -82,8 +82,8 @@
           </div>
         </div>
 
-        <div class="gn-md-relations pull-left" ng-if="::md.type == 'series'">
-          <div gn-related="::md" types="children"
+        <div class="gn-md-relations pull-left" ng-if="::md.type == 'series' || md.type == 'dataset'">
+          <div gn-related="::md" types="children|datasets|siblings"
                template="../../catalog/views/medde/partials/related-results.html"></div>
         </div>
 

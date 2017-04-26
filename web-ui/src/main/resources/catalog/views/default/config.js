@@ -125,9 +125,12 @@
           });
 
           // MEDDE: ajout de la couche IGN géoportail sur la carte de recherche
-          gnMap.addWmtsFromScratch(searchMap,
-            'https://wxs.ign.fr/1tkdsjfeqm5f0cyfoo5rmbwv/wmts',
-            'GEOGRAPHICALGRIDSYSTEMS.PLANIGN');
+          // gnMap.addWmtsFromScratch(searchMap,
+          //   'http://129.206.228.72/cached/osm',
+          //   'World Street Map ');
+          searchMap.addLayer(new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }))
 
           /** Facets configuration */
           searchSettings.facetsSummaryType = 'details';

@@ -115,10 +115,11 @@
 
       // use IGN layer as background for record view
       // TODO: use correct API key
-      $scope.background = 'http://wxs.ign.fr/1tkdsjfeqm5f0cyfoo5rmbwv/geoportail/r/wms' +
-        '?FORMAT=image%2Fpng&LAYERS=ORTHOIMAGERY.ORTHOPHOTOS' +
-        '&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap' +
-        '&EXCEPTIONS=XML&CRS=EPSG%3A3857&STYLES=&SLD_VERSION=1.1.0' +
-        '&BBOX={MINX},{MINY},{MAXX},{MAXY}&WIDTH={WIDTH}&HEIGHT={HEIGHT}';
+      // $scope.background = 'http://wxs.ign.fr/KEY/geoportail/r/wms' +
+      //   '?FORMAT=image%2Fpng&LAYERS=ORTHOIMAGERY.ORTHOPHOTOS' +
+      //   '&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap' +
+      //   '&EXCEPTIONS=XML&CRS=EPSG%3A3857&STYLES=&SLD_VERSION=1.1.0' +
+      //   '&BBOX={MINX},{MINY},{MAXX},{MAXY}&WIDTH={WIDTH}&HEIGHT={HEIGHT}';
+      $scope.background = 'osm';
     }]);
 })();

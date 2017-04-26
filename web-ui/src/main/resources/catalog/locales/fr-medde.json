@@ -5,7 +5,7 @@
     "contactUs": "Contact",
     "lastUpdateTime": "",
     "copyrightLinks": "Copyright",
-    "versionDetails": "Dernière date de mise à jour : <span class = 'gn-version'>xxx (v{{version}})</span>",
+    "versionDetails": "Catalogue basé sur GeoNetwork v<span class='gn-version'>{{version}}</span>",
     "topics": "Thèmes ISO",
     "topicCats": "Thèmes ISO",
     "topicCat": "Thème ISO",

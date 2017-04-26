@@ -6,32 +6,38 @@
 .c2c-medde-header {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
   padding: 8px;
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
 
   .c2c-spacer {
     flex-grow: 1;
   }
 
+  .c2c-logos {
+    img {
+      margin-right: 8px;
+      height: 64px;
+    }
+    img:last-child {
+      margin-right: 0px;
+    }
+  }
+
   .c2c-title-link {
+    margin: 8px 0px;
     text-decoration: none;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 24px;
     font-weight: 600;
-
-    .c2c-logos {
-      white-space: nowrap;
-    }
-
-    img {
-      margin-right: 8px;
-      height: 64px;
-    }
-    img:last-child {
-      margin-right: 18px;
-    }
   }
 }
 

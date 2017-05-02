@@ -117,20 +117,27 @@
             view: new ol.View(mapsConfig)
           });
 
-
           var searchMap = new ol.Map({
             controls:[],
             view: new ol.View(angular.extend({}, mapsConfig)),
             layers: []
           });
 
-          // MEDDE: ajout de la couche IGN géoportail sur la carte de recherche
-          // gnMap.addWmtsFromScratch(searchMap,
-          //   'http://129.206.228.72/cached/osm',
-          //   'World Street Map ');
-          searchMap.addLayer(new ol.layer.Tile({
-            source: new ol.source.OSM()
-          }))
+          // initialize search map layers according to settings
+          // (default is OSM)
+          if (!viewerSettings.mapConfig.searchMapLayers) {
+            searchMap.addLayer(new ol.layer.Tile({
+              source: new ol.source.OSM()
+            }));
+          } else {
+            viewerSettings.mapConfig.searchMapLayers
+              .forEach(function (layerInfo) {
+                var result = gnMap.createLayerForType(layerInfo.type, {
+                  name: layerInfo.name,
+                  url: layerInfo.url
+                }, layerInfo.title, searchMap);
+              });
+          }
 
           /** Facets configuration */
           searchSettings.facetsSummaryType = 'details';

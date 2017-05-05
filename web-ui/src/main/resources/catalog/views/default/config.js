@@ -45,6 +45,23 @@
             viewerSettings.mapConfig.viewerMap ||
             '../../map/config-viewer.xml';
 
+          // these layers will be added along the default context
+          // (transform settings to be usable by the OwsContextService)
+          viewerSettings.additionalMapLayers =
+            viewerSettings.mapConfig.viewerMapLayers.map(function (layer) {
+              return {
+                name: '{type=' + layer.type + ', name=' + layer.name + '}',
+                title: layer.title,
+                group: 'Background layers',
+                server: [{
+                  service: 'urn:ogc:serviceType:WMS',
+                  onlineResource: [{
+                    href: layer.url
+                  }]
+                }]
+              }
+            });
+
           // Keep one layer in the background
           // while the context is not yet loaded.
           viewerSettings.bgLayers = [
@@ -114,7 +131,8 @@
 
           var viewerMap = new ol.Map({
             controls: [],
-            view: new ol.View(mapsConfig)
+            view: new ol.View(mapsConfig),
+            layers: []
           });
 
           var searchMap = new ol.Map({
@@ -125,7 +143,8 @@
 
           // initialize search map layers according to settings
           // (default is OSM)
-          if (!viewerSettings.mapConfig.searchMapLayers) {
+          if (!viewerSettings.mapConfig.searchMapLayers ||
+            !viewerSettings.mapConfig.searchMapLayers.length) {
             searchMap.addLayer(new ol.layer.Tile({
               source: new ol.source.OSM()
             }));

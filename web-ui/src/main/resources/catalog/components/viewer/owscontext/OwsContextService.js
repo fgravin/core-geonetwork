@@ -91,9 +91,12 @@
        * @description
        * Loads a context, ie. creates layers and centers the map
        *
-       * @param {Object} context object
+       * @param {string} text OWS context content
+       * @param {ol.map} map map
+       * @param {owsContextLayer} additionalLayers these layers will be added
+       *  after the context layers (used to add layers from the map settings)
        */
-      this.loadContext = function(text, map) {
+      this.loadContext = function(text, map, additionalLayers) {
         var context = unmarshaller.unmarshalString(text).value;
         // first remove any existing layer
         var layersToRemove = [];
@@ -138,9 +141,13 @@
         // is not currently visible)
         map.set('lastExtent', extent);
 
-        // load the resources
+        // load the resources & add additional layers if available
         var layers = context.resourceList.layer;
-        var i, j, olLayer;
+        if (additionalLayers) {
+          layers = layers.concat(additionalLayers);
+        }
+
+        var i, j, olLayer, bgLayers = [];
         var self = this;
         var promises = [];
         var overlays = [];
@@ -262,14 +269,16 @@
        * Loads a context from an URL.
        * @param {string} url URL to context
        * @param {ol.map} map map
+       * @param {owsContextLayer} additionalLayers these layers will be added
+       *  after the context layers (used to add layers from the map settings)
        */
-      this.loadContextFromUrl = function(url, map) {
+      this.loadContextFromUrl = function(url, map, additionalLayers) {
         var self = this;
         //        if (/^(f|ht)tps?:\/\//i.test(url)) {
         //          url = gnGlobalSettings.proxyUrl + encodeURIComponent(url);
         //        }
         $http.get(url).success(function(data) {
-          self.loadContext(data, map);
+          self.loadContext(data, map, additionalLayers);
         });
       };
 

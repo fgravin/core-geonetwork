@@ -1,6 +1,13 @@
-#!groovy
+#!/usr/bin/groovy
 
-node {
+// Load shared library
+@Library('c2c-pipeline-library') import static com.camptocamp.utils.*
+
+selectNodes {
+    (it.memorysize_mb as Float) > 6000
+}
+
+dockerBuild {
   stage('Docker pull the maven image') {
     sh 'docker pull maven:3-jdk-8'
     sh 'docker pull pmauduit/google-drive-publisher'
@@ -33,4 +40,4 @@ node {
       } // withCredentials
     } // if
   } // stage
-} // node
+} // dockerBuild

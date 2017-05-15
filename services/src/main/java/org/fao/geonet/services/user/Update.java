@@ -87,7 +87,8 @@ public class Update {
         return new OkResponse();
     }
 
-    @RequestMapping(value = "/{lang}/admin.user.update", produces = {
+    @RequestMapping(value = { "/{lang}/admin.user.update",
+                              "/{lang}/geoide.backoffice.user.update"}, produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

@@ -57,7 +57,8 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 public class Remove {
 
 
-    @RequestMapping(value = "/{lang}/admin.user.remove", produces = {
+    @RequestMapping(value = { "/{lang}/admin.user.remove",
+                              "/{lang}/geoide.backoffice.user.remove" }, produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

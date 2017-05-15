@@ -71,7 +71,8 @@ public class List {
     public void init(String appPath, ServiceConfig params) throws Exception {
     }
 
-    @RequestMapping(value = "/{lang}/admin.user.list", produces = {
+    @RequestMapping(value = {"/{lang}/admin.user.list",
+                             "/{lang}/geoide.backoffice.user.list"}, produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

@@ -208,22 +208,24 @@
             links: ['LINK', 'kml'],
             downloads: ['DOWNLOAD'],
             //layers:['OGC', 'kml'],
-            layers:['OGC:WMS'],
+            layers: [
+              'OGC:WMS-1.1.1-http-get-map',
+              'OGC:WMS-1.3.0-http-get-map'
+            ],
             maps: ['ows']
           };
 
           // Define which map protocols are used to add
           // layers or services to the map viewer
           searchSettings.mapProtocols = {
-            layers: [
-              'OGC:WMS',
-              'OGC:WMS-1.1.1-http-get-map',
-              'OGC:WMS-1.3.0-http-get-map',
-              'OGC:WFS'],
+            layers: searchSettings.linkTypes.layers,
             services: [
+              'OGC:WMS',
+              'OGC:WFS',
               'OGC:WMS-1.3.0-http-get-capabilities',
               'OGC:WMS-1.1.1-http-get-capabilities',
-              'OGC:WFS-1.0.0-http-get-capabilities']
+              'OGC:WFS-1.0.0-http-get-capabilities',
+              'OGC:WFS-1.3.0-http-get-capabilities']
           };
 
           // Set the default template to use

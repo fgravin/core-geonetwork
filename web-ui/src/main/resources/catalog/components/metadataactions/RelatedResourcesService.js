@@ -85,7 +85,7 @@
               gnSearchSettings.mapProtocols.services.indexOf(link.protocol) > -1;
 
             if (isServiceLink) {
-              gnMap.addOwsServiceToMap(link.url, 'WMS');
+              gnMap.addOwsServiceToMap(link.url, 'WFS');
             } else {
               var ftName = $filter('gnLocalized')(link.title);
               if (ftName) {

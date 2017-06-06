@@ -48,6 +48,7 @@
           // these layers will be added along the default context
           // (transform settings to be usable by the OwsContextService)
           viewerSettings.additionalMapLayers =
+            viewerSettings.mapConfig.viewerMapLayers ?
             viewerSettings.mapConfig.viewerMapLayers.map(function (layer) {
               return {
                 name: '{type=' + layer.type + ', name=' + layer.name + '}',
@@ -60,7 +61,7 @@
                   }]
                 }]
               }
-            });
+            }) : null;
 
           // Keep one layer in the background
           // while the context is not yet loaded.

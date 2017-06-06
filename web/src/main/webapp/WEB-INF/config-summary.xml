@@ -134,7 +134,7 @@
       <item facet="inspireTheme" sortBy="value" sortOrder="asc" max="35"
             translator="term:http://geonetwork-opensource.org/inspire-theme"/>
       <item facet="keyword" max="15"/>
-      <item facet="orgName" max="25"/>
+      <item facet="orgName" max="999"/>
       <item facet="createDateYear" sortBy="value" sortOrder="desc" max="40"/>
     </summaryType>
 

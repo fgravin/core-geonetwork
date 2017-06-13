@@ -112,6 +112,25 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
                     surname != null && surname.equals("backoffice_integration_test_updated"));
     }
 
+    @Test
+    public void testGeoIdeBackOfficeUserRemove() throws Exception {
+        MockHttpSession admSession = loginAsAdmin();
+        insertTestUser(admSession);
+        User testuser = userRepo.findOneByEmail(USERTESTEMAIL);
+
+        MultiValueMap<String,String> params = new LinkedMultiValueMap<String,String>();
+        params.put(Params.ID, Arrays.asList(new String[]{ String.format("%d", testuser.getId()) }));
+
+        ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.get("/eng/geoide.backoffice.user.remove")
+                .session(admSession)
+                .accept(MediaType.APPLICATION_XML)
+                .params(params));
+        MvcResult result = rs.andReturn();
+        String output = result.getResponse().getContentAsString();
+        assertTrue("Unexpected output of user.remove service, expected '<response><operation>removed</operation></response>'",
+                output.contains("<response><operation>removed</operation></response>"));
+    }
+
     private void insertTestUser(MockHttpSession session) throws Exception {
         MultiValueMap<String,String> params = new LinkedMultiValueMap<String,String>();
         params.put(Params.OPERATION, Arrays.asList(new String[]{ Params.Operation.NEWUSER }));

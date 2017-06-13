@@ -31,6 +31,7 @@ import org.fao.geonet.ApplicationContextHolder;
 import org.fao.geonet.constants.Params;
 import org.fao.geonet.domain.Profile;
 import org.fao.geonet.domain.UserGroupId_;
+import org.fao.geonet.domain.responses.OkOperation;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.repository.UserGroupRepository;
 import org.fao.geonet.repository.UserRepository;
@@ -56,9 +57,7 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 @Deprecated
 public class Remove {
 
-
-    @RequestMapping(value = { "/{lang}/admin.user.remove",
-                              "/{lang}/geoide.backoffice.user.remove" }, produces = {
+    @RequestMapping(value = { "/{lang}/admin.user.remove" }, produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -124,5 +123,70 @@ public class Remove {
         }
 
         return "\"" + Jeeves.Elem.RESPONSE + "\"";
+    }
+
+    /**
+     * This is a copy-pasted adaptation of the previous method, see {@link org.fao.geonet.services.user.Update} for the motivation
+     * of this copy-paste. Also, this version only produces XML as output.
+     *
+     * @param session
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = { "/{lang}/geoide.backoffice.user.remove" }, produces = { MediaType.APPLICATION_XML_VALUE })
+    public @ResponseBody OkOperation backOfficeRun(HttpSession session, @RequestParam(value = Params.ID, required = false) String id)
+            throws Exception {
+
+        Profile myProfile = Profile.Guest;
+        String myUserId = null;
+        Object tmp = session.getAttribute(JeevesServlet.USER_SESSION_ATTRIBUTE_KEY);
+        if (tmp instanceof UserSession) {
+            UserSession usrSess = (UserSession) tmp;
+            myProfile = usrSess.getProfile();
+            myUserId = usrSess.getUserId();
+        }
+
+        if (myUserId == null || myUserId.equals(id)) {
+            throw new IllegalArgumentException("You cannot delete yourself from the user database");
+        }
+
+        int iId = Integer.parseInt(id);
+
+        UserRepository userRepository = ApplicationContextHolder.get().getBean(UserRepository.class);
+        UserGroupRepository userGroupRepository = ApplicationContextHolder.get().getBean(UserGroupRepository.class);
+        DataManager dataMan = ApplicationContextHolder.get().getBean(DataManager.class);
+
+        if (myProfile == Profile.Administrator || myProfile == Profile.UserAdmin) {
+
+            if (myProfile == Profile.UserAdmin) {
+                final Integer iMyUserId = Integer.valueOf(myUserId);
+                final List<Integer> groupIds = userGroupRepository
+                        .findGroupIds(where(hasUserId(iMyUserId)).or(hasUserId(iId)));
+                if (groupIds.isEmpty()) {
+                    throw new IllegalArgumentException(
+                            "You don't have rights to delete this user because the user is not part of your group");
+                }
+            }
+
+            // Before processing DELETE check that the user is not referenced
+            // elsewhere in the GeoNetwork database - an exception is thrown if
+            // this is the case
+            if (dataMan.isUserMetadataOwner(iId)) {
+                throw new IllegalArgumentException("Cannot delete a user that is also a metadata owner");
+            }
+
+            if (dataMan.isUserMetadataStatus(iId)) {
+                throw new IllegalArgumentException("Cannot delete a user that has set a metadata status");
+            }
+
+            userGroupRepository.deleteAllByIdAttribute(UserGroupId_.userId, Arrays.asList(iId));
+            userRepository.delete(iId);
+
+        } else {
+            throw new IllegalArgumentException("You don't have rights to delete this user");
+        }
+
+        return new OkOperation("removed");
     }
 }

@@ -126,8 +126,7 @@
              */
           var mapsConfig = {
             center: [280274.03240585705, 6053178.654789996],
-            zoom: 2
-            //maxResolution: 9783.93962050256
+            zoom: 4            //maxResolution: 9783.93962050256
           };
 
           var viewerMap = new ol.Map({
@@ -277,6 +276,29 @@
               gnNcWms.feedOlLayer(layer);
             }
           });
+
+          // MEDDE: add a map for homepage
+          searchSettings.homepageMap = new ol.Map({
+            controls:[],
+            view: new ol.View(angular.extend({}, mapsConfig)),
+            layers: []
+          });
+
+          // initialize layers (same as search map)
+          if (!viewerSettings.mapConfig.searchMapLayers ||
+            !viewerSettings.mapConfig.searchMapLayers.length) {
+            searchSettings.homepageMap.addLayer(new ol.layer.Tile({
+              source: new ol.source.OSM()
+            }));
+          } else {
+            viewerSettings.mapConfig.searchMapLayers
+              .forEach(function (layerInfo) {
+                gnMap.createLayerForType(layerInfo.type, {
+                  name: layerInfo.name,
+                  url: layerInfo.url
+                }, layerInfo.title, searchSettings.homepageMap);
+              });
+          }
 
         }]);
 })();

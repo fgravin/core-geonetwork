@@ -93,6 +93,7 @@
 
       var viewerMap = gnSearchSettings.viewerMap;
       var searchMap = gnSearchSettings.searchMap;
+      var homepageMap = gnSearchSettings.homepageMap;
 
 
 
@@ -280,7 +281,7 @@
             match(/^(\/[a-zA-Z0-9]*)($|\/.*)/)[1];
 
         // resize search map for any views exluding viewer
-        if (!gnSearchLocation.isMap() && (!angular.isArray(
+        if (gnSearchLocation.isSearch() && (!angular.isArray(
             searchMap.getSize()) || searchMap.getSize()[0] < 0)) {
           setTimeout(function() {
             searchMap.updateSize();
@@ -302,7 +303,7 @@
 
         // resize viewer map for corresponding view
         if (gnSearchLocation.isMap() && (!angular.isArray(
-            viewerMap.getSize()) || viewerMap.getSize().indexOf(0) >= 0)) {
+            viewerMap.getSize()) || viewerMap.getSize()[0] <= 0)) {
           setTimeout(function() {
             viewerMap.updateSize();
 
@@ -314,6 +315,14 @@
             }
           }, 0);
         }
+
+        // MEDDE: resize homepage map for corresponding view
+        if (gnSearchLocation.isHome() && (!angular.isArray(
+            homepageMap.getSize()) || homepageMap.getSize()[0] < 0)) {
+          setTimeout(function() {
+            homepageMap.updateSize();
+          }, 0);
+        }
       });
 
       angular.extend($scope.searchObj, {
@@ -323,6 +332,7 @@
         selectionBucket: 's101',
         viewerMap: viewerMap,
         searchMap: searchMap,
+        homepageMap: homepageMap,
         mapfieldOption: {
           relations: ['within']
         },

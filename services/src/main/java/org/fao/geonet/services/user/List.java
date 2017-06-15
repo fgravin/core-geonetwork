@@ -72,7 +72,7 @@ public class List {
     }
 
     @RequestMapping(value = {"/{lang}/admin.user.list",
-                             "/{lang}/geoide.backoffice.user.list"}, produces = {
+                             "/{lang}/geoide.backoffice.users.list"}, produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

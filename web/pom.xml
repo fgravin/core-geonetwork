@@ -644,7 +644,6 @@
           <!-- <packagingExcludes>WEB-INF/data/**</packagingExcludes> -->
           <packagingExcludes>
             xml/schemas/**,
-            WEB-INF/data/**,
             WEB-INF/classes/log4j-dev.xml,
             WEB-INF/lib/postgresql-9.4.1211.jar,
             WEB-INF/lib/postgresql-8.3-603.jdbc4.jar,

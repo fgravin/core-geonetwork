@@ -23,10 +23,14 @@
 
 package org.fao.geonet.services.user;
 
-import jeeves.constants.Jeeves;
-import jeeves.server.UserSession;
-import jeeves.server.sources.http.JeevesServlet;
-import jeeves.services.ReadWriteController;
+import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.fao.geonet.ApplicationContextHolder;
 import org.fao.geonet.constants.Params;
 import org.fao.geonet.domain.Profile;
@@ -35,18 +39,20 @@ import org.fao.geonet.domain.responses.OkOperation;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.repository.UserGroupRepository;
 import org.fao.geonet.repository.UserRepository;
+import org.fao.geonet.utils.Xml;
+import org.jdom.Element;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
-import static org.springframework.data.jpa.domain.Specifications.where;
+import jeeves.constants.Jeeves;
+import jeeves.server.UserSession;
+import jeeves.server.sources.http.JeevesServlet;
+import jeeves.services.ReadWriteController;
 
 /**
  * Removes a user from the system. It removes the relationship to a group too.
@@ -134,10 +140,13 @@ public class Remove {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = { "/{lang}/geoide.backoffice.user.remove" }, produces = { MediaType.APPLICATION_XML_VALUE })
-    public @ResponseBody OkOperation backOfficeRun(HttpSession session, @RequestParam(value = Params.ID, required = false) String id)
+    @RequestMapping(value = { "/{lang}/geoide.backoffice.user.remove" },
+            method = RequestMethod.POST,
+            produces = { MediaType.APPLICATION_XML_VALUE })
+    public @ResponseBody OkOperation backOfficeRun(HttpSession session, @RequestBody String requestBodyStr)
             throws Exception {
-
+        Element requestBody = Xml.loadString(requestBodyStr, false);
+        String id = requestBody.getChildText("id");
         Profile myProfile = Profile.Guest;
         String myUserId = null;
         Object tmp = session.getAttribute(JeevesServlet.USER_SESSION_ATTRIBUTE_KEY);

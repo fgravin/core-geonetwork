@@ -48,6 +48,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -296,6 +297,7 @@ public class Update {
      */
     @RequestMapping(value = { "/{lang}/geoide.backoffice.user.update",
                               "/{lang}/geoide.backoffice.user.create" },
+            method = RequestMethod.POST,
             produces = { MediaType.APPLICATION_XML_VALUE })
     public @ResponseBody OkOperation backofficeRun(HttpSession session, HttpServletRequest request,
             @RequestBody String requestBodyStr

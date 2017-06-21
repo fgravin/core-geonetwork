@@ -1,6 +1,7 @@
 package org.fao.geonet.services.user;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -131,18 +132,20 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
         MockHttpSession admSession = loginAsAdmin();
         insertTestUser(admSession);
         User testuser = userRepo.findOneByEmail(USERTESTEMAIL);
+        String content = String.format("<request>"
+                + "  <id>%d</id>"
+                + "</request>", testuser.getId());
 
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<String,String>();
-        params.put(Params.ID, Arrays.asList(new String[]{ String.format("%d", testuser.getId()) }));
-
-        ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.get("/eng/geoide.backoffice.user.remove")
+        ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.post("/eng/geoide.backoffice.user.remove")
                 .session(admSession)
                 .accept(MediaType.APPLICATION_XML)
-                .params(params));
+                .content(content));
         MvcResult result = rs.andReturn();
         String output = result.getResponse().getContentAsString();
         assertTrue("Unexpected output of user.remove service, expected '<response><operation>removed</operation></response>'",
                 output.contains("<response><operation>removed</operation></response>"));
+        // Makes sure the user cannot be found back after removal
+        assertNull("User can be found after removal, this should not happen", userRepo.findOneByEmail(USERTESTEMAIL));
     }
 
     private void insertTestUser(MockHttpSession session) throws Exception {

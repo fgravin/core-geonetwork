@@ -4,8 +4,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-
 import org.fao.geonet.constants.Params;
 import org.fao.geonet.domain.User;
 import org.fao.geonet.repository.UserRepository;
@@ -22,8 +20,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -104,10 +100,9 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
                 + "<surname>%s</surname>"
                 + "<name>%s</name>"
                 + "<email>%s</email>"
-                + "<enabled>%s</enabled>"
                 + "</request>", testuser.getId(),
                 USERTESTNAME,  Params.Operation.EDITINFO, "backoffice_integration_test_updated",
-                "medde_geoide", USERTESTEMAIL, "true");
+                "medde_geoide", USERTESTEMAIL);
 
         ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.post("/eng/geoide.backoffice.user.update")
                 .session(admSession)
@@ -156,9 +151,8 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
                 + "  <name>%s</name>"
                 + "  <password>%s</password>"
                 + "  <email>%s</email>"
-                + "  <enabled>%s</enabled>" // TODO: useful ? waiting for customer's feedback
                 + "</request>", Params.Operation.NEWUSER , USERTESTNAME, "backoffice_integration_test", "medde_geoide", "superSecretPassword123",
-                USERTESTEMAIL, "true");
+                USERTESTEMAIL);
 
         ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.post("/eng/geoide.backoffice.user.create")
                 .session(session)

@@ -304,7 +304,7 @@ public class Update {
             ) throws Exception {
         Element requestBody = Xml.loadString(requestBodyStr, false);
         String id = requestBody.getChildText(Params.ID);
-        Boolean enabled = Boolean.getBoolean(requestBody.getChildText(Params.ENABLED));
+        Boolean enabled = true;
         String operation = requestBody.getChildText(Params.OPERATION);
         String username = requestBody.getChildText(Params.USERNAME);
         String profile_ = requestBody.getChildText(Params.PROFILE);

@@ -4,14 +4,28 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.fao.geonet.constants.Params;
+import org.fao.geonet.domain.Group;
+import org.fao.geonet.domain.Profile;
 import org.fao.geonet.domain.User;
+import org.fao.geonet.domain.UserGroup;
+import org.fao.geonet.domain.UserGroup_;
+import org.fao.geonet.repository.GroupRepository;
+import org.fao.geonet.repository.UserGroupRepository;
 import org.fao.geonet.repository.UserRepository;
+import org.fao.geonet.repository.specification.UserGroupSpecs;
 import org.fao.geonet.services.AbstractServiceIntegrationTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -43,6 +57,9 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private UserGroupRepository userGroupRepo;
 
     private static final String USERTESTNAME = "backofficetests";
     private static final String USERTESTEMAIL = "medde_geoide@aaaa.com";
@@ -141,6 +158,36 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
                 output.contains("<response><operation>removed</operation></response>"));
         // Makes sure the user cannot be found back after removal
         assertNull("User can be found after removal, this should not happen", userRepo.findOneByEmail(USERTESTEMAIL));
+    }
+
+    @Test
+    public void testGeoIdeBackOfficeUserGroupProfileInsert() throws Exception {
+        MockHttpSession admSession = loginAsAdmin();
+        String content = String.format("<request>"
+                + "  <operation>%s</operation>"
+                + "  <username>%s</username>"
+                + "  <surname>%s</surname>"
+                + "  <name>%s</name>"
+                + "  <password>%s</password>"
+                + "  <email>%s</email>"
+                + "  <groups_RegisteredUser>%s</groups_RegisteredUser>"
+                + "</request>", Params.Operation.NEWUSER , USERTESTNAME, "backoffice_integration_test", "medde_geoide", "superSecretPassword123",
+                USERTESTEMAIL, "sample");
+
+        ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.post("/eng/geoide.backoffice.user.create")
+                .session(admSession)
+                .accept(MediaType.APPLICATION_XML)
+                .content(content));
+        User testuser2 = userRepo.findOneByEmail(USERTESTEMAIL);
+        assertNotNull("user cannot be found back after calling 'geoide.backoffice.user.create' webservice", testuser2);
+        UserGroup ug = userGroupRepo.findOne(Specifications.where(UserGroupSpecs.hasGroupId(2)) // sample group
+                .and(UserGroupSpecs.hasUserId(testuser2.getId()) // newly added user ID
+        ));
+        userRepo.delete(testuser2);
+
+        assertNotNull("UserGroup entry for newly added user cannot be found", ug);
+        assertTrue("newly added user does not have the expected profile for group 'sample'", ug.getProfile().equals(Profile.RegisteredUser));
+
     }
 
     private void insertTestUser(MockHttpSession session) throws Exception {

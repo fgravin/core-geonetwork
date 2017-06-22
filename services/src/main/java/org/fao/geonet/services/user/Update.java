@@ -56,6 +56,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.fao.geonet.repository.specification.UserGroupSpecs.hasProfile;
 import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
@@ -69,6 +71,7 @@ import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
 @Deprecated
 public class Update {
 
+    private final Pattern profilePattern = Pattern.compile("^groups_(.*)$");
 
     @RequestMapping(value = "/{lang}/admin.user.resetpassword", produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -319,24 +322,30 @@ public class Update {
         String email = requestBody.getChildText(Params.EMAIL);
         String organ = requestBody.getChildText(Params.ORG);
         String kind = requestBody.getChildText(Params.KIND);
+
+        GroupRepository groupRepository = ApplicationContextHolder.get().getBean(GroupRepository.class);
+        List<GroupElem> groups = new LinkedList<>();
+        for (Element elem: (List<Element>) requestBody.getChildren()) {
+            Matcher m = profilePattern.matcher(elem.getName());
+            if (m.find()) {
+                String profile = m.group(1);
+                String userGroup = elem.getText();
+                Group currentGroup = groupRepository.findByName(userGroup);
+                if (currentGroup != null) {
+                    groups.add(new GroupElem(profile, currentGroup.getId()));
+                }
+            }
+        }
         
         if (id == null && operation.equalsIgnoreCase(Params.Operation.NEWUSER)) {
             id = "";
         }
-        List<GroupElem> groups = new LinkedList<>();
+
         Profile profile = Profile.findProfileIgnoreCase(profile_);
         LoadCurrentUserInfo loadCurrentUserInfo = new LoadCurrentUserInfo(session, id).invoke();
         Profile myProfile = loadCurrentUserInfo.getMyProfile();
         String myUserId = loadCurrentUserInfo.getMyUserId();
-        Map<String, String[]> params = request.getParameterMap();
-        for (Map.Entry<String, String[]> entry : params.entrySet()) {
-            String key = entry.getKey();
-            if (key.startsWith("groups_")) {
-                for (String s : entry.getValue()) {
-                    groups.add(new GroupElem(key.substring(7), Integer.valueOf(s)));
-                }
-            }
-        }
+
         UserRepository userRepository = ApplicationContextHolder.get().getBean(UserRepository.class);
         if (profile == Profile.Administrator) {
             // Check at least 1 administrator is enabled

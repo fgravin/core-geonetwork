@@ -40,11 +40,15 @@ import org.fao.geonet.repository.UserRepository;
 import org.fao.geonet.repository.specification.UserGroupSpecs;
 import org.fao.geonet.repository.specification.UserSpecs;
 import org.fao.geonet.util.PasswordUtil;
+import org.fao.geonet.utils.Xml;
+import org.jdom.Element;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,6 +56,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.fao.geonet.repository.specification.UserGroupSpecs.hasProfile;
 import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
@@ -65,6 +71,7 @@ import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
 @Deprecated
 public class Update {
 
+    private final Pattern profilePattern = Pattern.compile("^groups_(.*)$");
 
     @RequestMapping(value = "/{lang}/admin.user.resetpassword", produces = {
         MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -273,69 +280,72 @@ public class Update {
 
     /**
      * geoide / Backoffice version of user.create / user.update. This is a
-     * copy-pasted of the previous version, because I did not want to be too
-     * intrusive with the return type (OkResponse is buggy when asking XML value
-     * as output).
+     * copy-pasted of the previous version, roughly adapted to suit what
+     * previous Jeeves webservice used to do. I did not want to be too intrusive
+     * with the return type (OkResponse is buggy when asking XML value as
+     * output).
      *
      * This should not affect the behaviour of the previous webservice.
      *
      * @param session
      * @param request
-     * @param operation
-     * @param id
-     * @param username
-     * @param password
-     * @param profile_
-     * @param surname
-     * @param name
-     * @param address
-     * @param city
-     * @param state
-     * @param zip
-     * @param country
-     * @param email
-     * @param organ
-     * @param kind
-     * @param enabled
-     * @return
+     * @param requestBody
+     *            the XML body sent to the webservice
+     *
+     * @return a XML response corresponding to what has been specified by the
+     *         customer on
+     *         https://scm-forge.din.developpement-durable.gouv.fr/redmine/issues/4199
+     *
      * @throws Exception
      */
     @RequestMapping(value = { "/{lang}/geoide.backoffice.user.update",
                               "/{lang}/geoide.backoffice.user.create" },
+            method = RequestMethod.POST,
             produces = { MediaType.APPLICATION_XML_VALUE })
     public @ResponseBody OkOperation backofficeRun(HttpSession session, HttpServletRequest request,
-            @RequestParam(value = Params.OPERATION) String operation,
-            @RequestParam(value = Params.ID, required = false) String id,
-            @RequestParam(value = Params.USERNAME) String username,
-            @RequestParam(value = Params.PASSWORD, required = false) String password,
-            @RequestParam(value = Params.PROFILE, required = false) String profile_,
-            @RequestParam(value = Params.SURNAME) String surname, @RequestParam(value = Params.NAME) String name,
-            @RequestParam(value = Params.ADDRESS, required = false) String address,
-            @RequestParam(value = Params.CITY, required = false) String city,
-            @RequestParam(value = Params.STATE, required = false) String state,
-            @RequestParam(value = Params.ZIP, required = false) String zip,
-            @RequestParam(value = Params.COUNTRY, required = false) String country,
-            @RequestParam(value = Params.EMAIL) String email,
-            @RequestParam(value = Params.ORG, required = false) String organ,
-            @RequestParam(value = Params.KIND, required = false) String kind,
-            @RequestParam(value = Params.ENABLED) Boolean enabled) throws Exception {
+            @RequestBody String requestBodyStr
+            ) throws Exception {
+        Element requestBody = Xml.loadString(requestBodyStr, false);
+        String id = requestBody.getChildText(Params.ID);
+        Boolean enabled = true;
+        String operation = requestBody.getChildText(Params.OPERATION);
+        String username = requestBody.getChildText(Params.USERNAME);
+        String profile_ = requestBody.getChildText(Params.PROFILE);
+        String password = requestBody.getChildText(Params.PASSWORD);
+        String surname = requestBody.getChildText(Params.SURNAME);
+        String name = requestBody.getChildText(Params.NAME);
+        String address = requestBody.getChildText(Params.ADDRESS);
+        String city = requestBody.getChildText(Params.CITY);
+        String state = requestBody.getChildText(Params.STATE);
+        String zip = requestBody.getChildText(Params.ZIP);
+        String country = requestBody.getChildText(Params.COUNTRY);
+        String email = requestBody.getChildText(Params.EMAIL);
+        String organ = requestBody.getChildText(Params.ORG);
+        String kind = requestBody.getChildText(Params.KIND);
+
+        GroupRepository groupRepository = ApplicationContextHolder.get().getBean(GroupRepository.class);
+        List<GroupElem> groups = new LinkedList<>();
+        for (Element elem: (List<Element>) requestBody.getChildren()) {
+            Matcher m = profilePattern.matcher(elem.getName());
+            if (m.find()) {
+                String profile = m.group(1);
+                String userGroup = elem.getText();
+                Group currentGroup = groupRepository.findByName(userGroup);
+                if (currentGroup != null) {
+                    groups.add(new GroupElem(profile, currentGroup.getId()));
+                }
+            }
+        }
+        
         if (id == null && operation.equalsIgnoreCase(Params.Operation.NEWUSER)) {
             id = "";
         }
-        List<GroupElem> groups = new LinkedList<>();
+
         Profile profile = Profile.findProfileIgnoreCase(profile_);
         LoadCurrentUserInfo loadCurrentUserInfo = new LoadCurrentUserInfo(session, id).invoke();
         Profile myProfile = loadCurrentUserInfo.getMyProfile();
         String myUserId = loadCurrentUserInfo.getMyUserId();
-        Map<String, String[]> params = request.getParameterMap();
-        for (Map.Entry<String, String[]> entry : params.entrySet()) {
-            String key = entry.getKey();
-            if (key.startsWith("groups_")) {
-                for (String s : entry.getValue()) {
-                    groups.add(new GroupElem(key.substring(7), Integer.valueOf(s)));
-                }
-            }
-        }
+
         UserRepository userRepository = ApplicationContextHolder.get().getBean(UserRepository.class);
         if (profile == Profile.Administrator) {
             // Check at least 1 administrator is enabled

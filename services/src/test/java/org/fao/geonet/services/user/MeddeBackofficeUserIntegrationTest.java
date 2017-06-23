@@ -170,9 +170,9 @@ public class MeddeBackofficeUserIntegrationTest extends AbstractServiceIntegrati
                 + "  <name>%s</name>"
                 + "  <password>%s</password>"
                 + "  <email>%s</email>"
-                + "  <groups_RegisteredUser>%s</groups_RegisteredUser>"
+                + "  <groups_RegisteredUser>%d</groups_RegisteredUser>"
                 + "</request>", Params.Operation.NEWUSER , USERTESTNAME, "backoffice_integration_test", "medde_geoide", "superSecretPassword123",
-                USERTESTEMAIL, "sample");
+                USERTESTEMAIL, 2); // 2 = "sample group" identifier
 
         ResultActions rs = mockMvc.perform(MockMvcRequestBuilders.post("/eng/geoide.backoffice.user.create")
                 .session(admSession)

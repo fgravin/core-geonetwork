@@ -23,17 +23,32 @@
 
 package org.fao.geonet.services.user;
 
-import com.vividsolutions.jts.util.Assert;
-import jeeves.server.UserSession;
-import jeeves.server.sources.http.JeevesServlet;
-import jeeves.services.ReadWriteController;
+import static org.fao.geonet.repository.specification.UserGroupSpecs.hasProfile;
+import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.fao.geonet.ApplicationContextHolder;
 import org.fao.geonet.constants.Params;
-import org.fao.geonet.domain.*;
+import org.fao.geonet.domain.Address;
+import org.fao.geonet.domain.Group;
+import org.fao.geonet.domain.Profile;
+import org.fao.geonet.domain.User;
+import org.fao.geonet.domain.UserGroup;
 import org.fao.geonet.domain.responses.OkOperation;
 import org.fao.geonet.domain.responses.OkResponse;
-import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.repository.GroupRepository;
 import org.fao.geonet.repository.UserGroupRepository;
 import org.fao.geonet.repository.UserRepository;
@@ -52,15 +67,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.*;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.vividsolutions.jts.util.Assert;
 
-import static org.fao.geonet.repository.specification.UserGroupSpecs.hasProfile;
-import static org.fao.geonet.repository.specification.UserGroupSpecs.hasUserId;
+import jeeves.server.UserSession;
+import jeeves.server.sources.http.JeevesServlet;
+import jeeves.services.ReadWriteController;
 
 /**
  * Update the information of a user.
@@ -329,10 +340,11 @@ public class Update {
             Matcher m = profilePattern.matcher(elem.getName());
             if (m.find()) {
                 String profile = m.group(1);
-                String userGroup = elem.getText();
-                Group currentGroup = groupRepository.findByName(userGroup);
-                if (currentGroup != null) {
-                    groups.add(new GroupElem(profile, currentGroup.getId()));
+                try {
+                  int userGroupId = Integer.parseInt(elem.getText());
+                    groups.add(new GroupElem(profile, userGroupId));
+                } catch (NumberFormatException e) {
+                    // Unable to parse the group Id, skipping it silently
                 }
             }
         }

@@ -35,11 +35,13 @@
   goog.require('gn_gridrelated_directive');
   goog.require('gn_search_default_config');
   goog.require('gn_search_default_directive');
+  goog.require('medde_viewservices');
 
   var module = angular.module('gn_search_default',
       ['gn_search', 'gn_search_default_config',
        'gn_search_default_directive', 'gn_related_directive',
-       'cookie_warning', 'gn_mdactions_directive', 'gn_gridrelated_directive']);
+       'cookie_warning', 'gn_mdactions_directive', 'gn_gridrelated_directive',
+       'medde_viewservices']);
 
 
   module.controller('gnsSearchPopularController', [

@@ -86,23 +86,9 @@
         };
 
         var mergeDefaultParams = function(url, defaultParams) {
-          //merge URL parameters with default ones
-          var parts = url.split('?');
-          var urlParams = angular.isDefined(parts[1]) ?
-              gnUrlUtils.parseKeyValue(parts[1]) : {};
-
-          for (var p in urlParams) {
-            defaultParams[p] = urlParams[p];
-            if (defaultParams.hasOwnProperty(p.toLowerCase()) &&
-                p != p.toLowerCase()) {
-              delete defaultParams[p.toLowerCase()];
-            }
-          }
-
-          return gnUrlUtils.append(parts[0],
-              gnUrlUtils.toKeyValue(defaultParams));
-
-
+          var separator = url.indexOf('?') > -1 ? '&' : '?';
+          var params = gnUrlUtils.toKeyValue(defaultParams)
+          return params ? url + separator + params : url;
         };
         return {
           mergeDefaultParams: mergeDefaultParams,

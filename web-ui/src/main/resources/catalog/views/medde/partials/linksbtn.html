@@ -56,8 +56,10 @@
   </div>
 
   <div class="btn-group" ng-if="md.type.indexOf('dataset') > -1">
-    <button type="button" medde-view-services="md" class="btn btn-default">
-      <i class="fa fa-globe"/>
+    <button type="button" medde-view-services="md" class="btn btn-default"
+      title="{{'visualize' | translate}}">
+      <i ng-show="!loadingViewServices" class="fa fa-globe"/>
+      <i ng-show="loadingViewServices" class="fa fa-spinner fa-spin"/>
     </button>
   </div>
 

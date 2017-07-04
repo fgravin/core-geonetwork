@@ -34,12 +34,14 @@
     'gnSearchSettings',
     'gnMap',
     'gnSearchLocation',
+    '$timeout',
     function ($scope,
       $http,
       $element,
       gnSearchSettings,
       gnMap,
-      gnSearchLocation) {
+      gnSearchLocation,
+      $timeout) {
       var me = this;
 
       // watch the presence of related view services
@@ -63,6 +65,7 @@
       // add view services on the metadata
       this.lookupViewServices = function (metadata) {
         metadata.relatedViewServices = [];
+        $scope.$parent.loadingViewServices = true;
 
         console.log('starting view services lookup...');
 
@@ -75,7 +78,7 @@
           }).join(' or ');
 
           // we have the related services: check the ones that have WMS
-          $http.get('q?_content_type=json&fast=index&_uuid=' + uuidList)
+          return $http.get('q?_content_type=json&fast=index&_uuid=' + uuidList)
             .then(function (response) {
               var filteredServices = (response.data.metadata || []).filter(
                 function (md) {
@@ -123,13 +126,15 @@
                   });
                 }
               );
-
+            }).finally(function () {
               console.log('found view services: ', metadata.relatedViewServices);
+              $scope.$parent.loadingViewServices = false;
             });
         });
       };
 
       // this will switch to the viewer and add all found view services
+      // note: all layers will be set as invisible by default
       this.addAllServices = function () {
         var services = me.metadata.relatedViewServices;
         if (!services || !services.length || !gnSearchSettings.viewerMap) {
@@ -138,9 +143,19 @@
         services.forEach(function (service) {
           gnMap.addWmsFromScratch(gnSearchSettings.viewerMap,
             service.url, service.name,
-            false, me.metadata);
+            false, me.metadata).then(function (layer) {
+              layer.setVisible(false);
+            });
         });
         gnSearchLocation.setMap();
+
+        // open layers panel
+        var layersPanel = $('[id=layers]');
+        if (layersPanel) {
+          $timeout(function() {
+            layersPanel.removeClass('force-hide');
+          });
+        }
       };
     }
   ];

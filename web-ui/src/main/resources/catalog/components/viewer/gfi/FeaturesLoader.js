@@ -133,7 +133,7 @@
 
   geonetwork.GnFeaturesGFILoader.prototype.getBsTableConfig = function() {
     var pageList = [5, 10, 50, 100];
-    var exclude = ['FID', 'boundedBy', 'the_geom', 'thegeom'];
+    var exclude = ['FID', 'boundedBy', 'the_geom', 'thegeom', 'geometry'];
     var $filter = this.$injector.get('$filter');
 
     return this.promise.then(function(features) {

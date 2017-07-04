@@ -181,6 +181,8 @@
       <field name="standardName" tagName="standardName"/>
       <field name="_groupWebsite" tagName="groupWebsite"/>
       <field name="attributeTable" tagName="attributeTable"/>
+      <field name="coupledResources" tagName="coupledResources"/>
+      <field name="containsOperations" tagName="containsOperations"/>
     </dumpFields>
   </search>
 

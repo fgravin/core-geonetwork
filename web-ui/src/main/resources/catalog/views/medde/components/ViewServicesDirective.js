@@ -67,8 +67,6 @@
         metadata.relatedViewServices = [];
         $scope.$parent.loadingViewServices = true;
 
-        console.log('starting view services lookup...');
-
         // do a request to find related services
         $http.get('../api/records/' + metadata.getUuid() +
           '/related?type=services').then(function (response) {
@@ -127,7 +125,6 @@
                 }
               );
             }).finally(function () {
-              console.log('found view services: ', metadata.relatedViewServices);
               $scope.$parent.loadingViewServices = false;
             });
         });
@@ -137,17 +134,27 @@
       // note: all layers will be set as invisible by default
       this.addAllServices = function () {
         var services = me.metadata.relatedViewServices;
-        if (!services || !services.length || !gnSearchSettings.viewerMap) {
+        var map = gnSearchSettings.viewerMap;
+
+        if (!services || !services.length || !map) {
           return;
         }
         services.forEach(function (service) {
-          gnMap.addWmsFromScratch(gnSearchSettings.viewerMap,
-            service.url, service.name,
+          gnMap.addWmsFromScratch(map, service.url, service.name,
             false, me.metadata).then(function (layer) {
               layer.setVisible(false);
             });
         });
         gnSearchLocation.setMap();
+
+        // center on metadata bounding box
+        var crs = "EPSG:4326";
+        var targetCrs = "EPSG:3857";
+        var bbox = gnMap.getBboxFromMd(me.metadata)[0];
+        var extent = gnMap.reprojExtent(bbox, crs, targetCrs);
+        $timeout(function () {
+          map.getView().fit(extent, map.getSize());
+        }, 100);
 
         // open layers panel
         var layersPanel = $('[id=layers]');

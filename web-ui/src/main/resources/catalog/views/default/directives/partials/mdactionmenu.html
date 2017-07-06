@@ -91,6 +91,12 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
+      <li medde-view-services="md"><a href>
+        <i ng-show="!loadingViewServices" class="fa fa-globe"/>
+        <i ng-show="loadingViewServices" class="fa fa-spinner fa-spin"/>
+        &nbsp;
+        <span data-translate="">visualize</span>
+      </a></li>
       <li><a data-ng-href=""
              data-ng-click="mdService.getPermalink(md)">
         <i class="fa fa-link"/>&nbsp;

@@ -929,6 +929,40 @@
       </xsl:for-each>
     </xsl:for-each>
 
+
+    <!-- MEDDE: add coupled resources & operations -->
+    <xsl:for-each select="gmd:identificationInfo/srv:SV_ServiceIdentification/srv:coupledResource/srv:SV_CoupledResource">
+
+      <xsl:variable name="coupledResource">
+      {
+        "operationName": "<xsl:value-of select="srv:operationName/gco:CharacterString/text()"/>",
+        "identifier": "<xsl:value-of select="srv:identifier/gco:CharacterString/text()"/>",
+        "scopedName": "<xsl:value-of select="gco:ScopedName/text()"/>"
+      }
+      </xsl:variable>
+
+      <Field name="coupledResources"
+             string="{normalize-space($coupledResource)}"
+             store="true"
+             index="false"/>
+    </xsl:for-each>
+
+    <xsl:for-each select="gmd:identificationInfo/srv:SV_ServiceIdentification/srv:containsOperations/srv:SV_OperationMetadata">
+
+      <xsl:variable name="operation">
+      {
+        "operationName": "<xsl:value-of select="srv:operationName/gco:CharacterString/text()"/>",
+        "url": "<xsl:value-of select="srv:connectPoint/gmd:CI_OnlineResource/gmd:linkage/gmd:URL/text()"/>",
+        "protocol": "<xsl:value-of select="srv:connectPoint/gmd:CI_OnlineResource/gmd:protocol/gco:CharacterString/text()"/>"
+      }
+      </xsl:variable>
+
+      <Field name="containsOperations"
+             string="{normalize-space($operation)}"
+             store="true"
+             index="false"/>
+    </xsl:for-each>
+
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- === Free text search === -->
 
@@ -1027,6 +1061,5 @@
   </xsl:template>
 
   <!-- ========================================================================================= -->
-
 
 </xsl:stylesheet>

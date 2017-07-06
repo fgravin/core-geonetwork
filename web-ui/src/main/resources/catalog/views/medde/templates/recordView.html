@@ -119,11 +119,42 @@
              data-title="{{'downloadsAndResources' | translate}}">
         </div>
 
+        <!-- personnalisation MEDDE -->
         <div data-gn-related="mdView.current.record"
+             data-template="../../catalog/views/medde/partials/related.html"
+             data-user="user"
+             data-types="services"
+             data-title="{{'associatedServices' | translate}}">
+        </div>
+
+        <div data-gn-related="mdView.current.record"
+            ng-if="md.type == 'dataset'"
+             data-template="../../catalog/views/medde/partials/related.html"
+             data-user="user"
+             data-types="associated|related|datasets|siblings"
+             data-title="{{'associatedDatasets' | translate}}">
+        </div>
+
+        <div data-gn-related="mdView.current.record"
+             data-template="../../catalog/views/medde/partials/related.html"
+             data-user="user"
+             data-types="children"
+             data-title="{{'childrenMetadata' | translate}}">
+        </div>
+
+        <div data-gn-related="mdView.current.record"
+             data-template="../../catalog/views/medde/partials/related.html"
+             data-user="user"
+             data-types="parent"
+             data-title="{{'parentMetadata' | translate}}">
+        </div>
+
+        <!-- <div data-gn-related="mdView.current.record"
              data-user="user"
              data-types="parent|children|services|datasets"
              data-title="{{'associatedResources' | translate}}">
-        </div>
+        </div> -->
+        <!-- fin personnalisation MEDDE -->
 
         <h2 data-translate="">aboutThisResource</h2>
         <table class="table table-striped">
@@ -365,6 +396,7 @@
         </table>
 
 
+        <!-- PERSONNALISATION MEDDE
         <div data-gn-related="mdView.current.record"
              data-user="user"
              data-types="fcats|related"
@@ -374,7 +406,7 @@
              data-user="user"
              data-types="siblings|associated|related"
              data-title="{{'siblings' | translate}}">
-        </div>
+        </div> -->
 
         <h2 data-translate="">metadataInformation</h2>
 
@@ -479,9 +511,9 @@
           <!-- TODO: use map config -->
           <p data-ng-repeat="bbox in mdView.current.record.geoBox">
             <img class="gn-img-thumbnail img-thumbnail gn-img-extent"
-                 data-ng-src="region.getmap.png?mapsrs=EPSG:3857&width=250&background=osm&geomsrs=EPSG:4326&geom={{mdView.current.record.getBoxAsPolygon($index)}}"/>
+                 data-ng-src="region.getmap.png?mapsrs=EPSG:3857&width=250&background={{background}}&geomsrs=EPSG:4326&geom={{mdView.current.record.getBoxAsPolygon($index)}}"/>
+              {{ ::'geographicalExtent' | translate }}: {{ mdView.current.record.getBoxAsReadable($index) }}
           </p>
-
         </section>
         </br>
 
@@ -579,6 +611,8 @@
         </section>
         </br>
 
+        <!-- personnalisation MEDDE -->
+        <!--
         <section>
           <h4>
             <i class="fa fa-fw fa-share-square-o"></i>
@@ -623,6 +657,8 @@
           <div data-gn-metadata-rate="mdView.current.record"/>
 
         </section>
+        -->
+        <!-- fin personnalisation MEDDE -->
       </div>
 
     </div>

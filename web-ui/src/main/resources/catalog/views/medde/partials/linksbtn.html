@@ -25,11 +25,12 @@
   </div>
 
   <div class="btn-group"
-       data-ng-if="isMapViewerEnabled && layers.length > 1">
+       data-ng-if="isMapViewerEnabled && (layers.length > 1 || md.type.indexOf('dataset') > -1)">
     <button type="button"
             class="btn btn-default dropdown-toggle"
             data-toggle="dropdown"
-            title="{{'layers' | translate}}">
+            title="{{'layers' | translate}}"
+            ng-click="viewDropdownOpen = true">
       <span class="fa fa-globe"></span>
       <span class="caret"></span>
     </button>
@@ -52,15 +53,16 @@
               addAllLayersToMap</span>
         </a>
       </li>
+      <li medde-view-services="md"
+        ng-if="viewDropdownOpen && md.type.indexOf('dataset') > -1">
+        <a href title="{{'visualize' | translate}}">
+          <i ng-show="!loadingViewServices" class="fa fa-globe"/>
+          <i ng-show="loadingViewServices" class="fa fa-spinner fa-spin"/>
+          &nbsp;
+          <span translate>visualize</span>
+        </a>
+      </li>
     </ul>
-  </div>
-
-  <div class="btn-group" ng-if="md.type.indexOf('dataset') > -1">
-    <button type="button" medde-view-services="md" class="btn btn-default"
-      title="{{'visualize' | translate}}">
-      <i ng-show="!loadingViewServices" class="fa fa-globe"/>
-      <i ng-show="loadingViewServices" class="fa fa-spinner fa-spin"/>
-    </button>
   </div>
 
   <button type="button"

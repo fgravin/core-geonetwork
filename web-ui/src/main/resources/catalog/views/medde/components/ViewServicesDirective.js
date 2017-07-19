@@ -78,7 +78,13 @@
           // we have the related services: check the ones that have WMS
           return $http.get('q?_content_type=json&fast=index&_uuid=' + uuidList)
             .then(function (response) {
-              var filteredServices = (response.data.metadata || []).filter(
+              if (!response.data.metadata) {
+                return;
+              }
+
+              var mdList = Array.isArray(response.data.metadata) ?
+                response.data.metadata : [response.data.metadata];
+              var filteredServices = mdList.filter(
                 function (md) {
                   if (!md.link || !md.link.length) {
                     return false;

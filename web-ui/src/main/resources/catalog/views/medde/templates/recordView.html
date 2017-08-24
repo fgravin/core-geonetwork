@@ -149,6 +149,21 @@
              data-title="{{'parentMetadata' | translate}}">
         </div>
 
+        <div data-gn-related="mdView.current.record"
+             ng-if="mdView.current.record.type[0] == 'featureCatalog'"
+             data-user="user"
+             data-types="fcats|related"
+             data-title="{{'openRecordhasfeaturecat' | translate}}">
+        </div>
+
+        <div data-gn-related="mdView.current.record"
+             ng-if="mdView.current.record.type[0] != 'featureCatalog'"
+             data-user="user"
+             data-types="fcats|related"
+             data-title="{{'featureCatalog' | translate}}">
+        </div>
+
+
         <!-- <div data-gn-related="mdView.current.record"
              data-user="user"
              data-types="parent|children|services|datasets"

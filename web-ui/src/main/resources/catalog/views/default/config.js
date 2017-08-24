@@ -224,7 +224,7 @@
             list: [{
               label: 'full',
               url : function(md) {
-                return '../api/records/' + md.getUuid() + '/formatters/xsl-view?root=div&view=advanced';
+                return '../api/records/' + md.getUuid() + '/formatters/full_view?root=div&view=advanced';
               }
             }]
           };

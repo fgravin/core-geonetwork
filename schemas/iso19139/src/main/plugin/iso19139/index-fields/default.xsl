@@ -802,25 +802,33 @@
     <xsl:variable name="isPublishedWithWMCProtocol" select="count(gmd:distributionInfo/gmd:MD_Distribution/
                         gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:protocol[starts-with(gco:CharacterString, 'OGC:WMC')]) > 0"/>
 
+    <!--Specific MEDDE, add new meddetype index without any service value-->
     <xsl:choose>
       <xsl:when test="$isDataset and $isMapDigital and
                             ($isStatic or $isInteractive or $isPublishedWithWMCProtocol)">
         <Field name="type" string="map" store="true" index="true"/>
+        <Field name="meddetype" string="map" store="true" index="true"/>
         <xsl:choose>
           <xsl:when test="$isStatic">
             <Field name="type" string="staticMap" store="true" index="true"/>
+            <Field name="meddetype" string="staticMap" store="true" index="true"/>
           </xsl:when>
           <xsl:when test="$isInteractive or $isPublishedWithWMCProtocol">
             <Field name="type" string="interactiveMap" store="true" index="true"/>
+            <Field name="meddetype" string="interactiveMap" store="true" index="true"/>
           </xsl:when>
         </xsl:choose>
       </xsl:when>
       <xsl:when test="$isDataset">
         <Field name="type" string="dataset" store="true" index="true"/>
+        <Field name="meddetype" string="dataset" store="true" index="true"/>
       </xsl:when>
       <xsl:when test="gmd:hierarchyLevel">
         <xsl:for-each select="gmd:hierarchyLevel/gmd:MD_ScopeCode/@codeListValue[.!='']">
           <Field name="type" string="{string(.)}" store="true" index="true"/>
+          <xsl:if test="not(starts-with(string(.), 'service'))">
+            <Field name="meddetype" string="{string(.)}" store="true" index="true"/>
+          </xsl:if>
         </xsl:for-each>
       </xsl:when>
     </xsl:choose>

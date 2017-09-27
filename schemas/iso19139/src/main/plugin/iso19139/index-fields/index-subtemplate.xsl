@@ -85,8 +85,9 @@
                 <xsl:variable name="mail"
                               select="normalize-space(gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress[1]/gco:CharacterString)"/>
 
+                <Field name="individual_name" string="{$name}" store="true" index="true"/>
                 <Field name="_title"
-                       string="{if ($title != '') then $title 
+                       string="{if ($title != '') then $title
                                 else if ($name != '') then concat($org, ' (', $name, ')')
                                 else if ($mail != '') then concat($org, ' (', $mail, ')')
                                 else $org}"
@@ -106,9 +107,9 @@
                               select="normalize-space(gmd:individualName/gco:CharacterString)"/>
                <xsl:variable name="mail"
                               select="normalize-space(gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress[1]/gco:CharacterString)"/>
-
-              <Field name="_title"
-                       string="{if ($title != '') then $title 
+               <Field name="individual_name" string="{$name}" store="true" index="true"/>
+               <Field name="_title"
+                       string="{if ($title != '') then $title
                                 else if ($name != '') then concat($org, ' (', $name, ')')
                                 else if ($mail != '') then concat($org, ' (', $mail, ')')
                                 else $org}"
@@ -130,7 +131,7 @@
     <!--Distribution information-->
     <xsl:template mode="index" match="gmd:MD_Distribution[count(ancestor::node()) =  1]">
         <Field name="_title"
-               string="{if ($title != '') then $title 
+               string="{if ($title != '') then $title
         else string-join(gmd:transferOptions/gmd:MD_DigitalTransferOptions/
         gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL, ', ')}"
                store="true" index="true"/>
@@ -157,7 +158,7 @@
           <xsl:choose>
             <xsl:when test="$isMultilingual">
               <Field name="_title"
-                     string="{if ($title != '') then $title else 
+                     string="{if ($title != '') then $title else
                        gmd:description/gmd:PT_FreeText/gmd:textGroup/gmd:LocalisedCharacterString[@locale = $locale]}"
                      store="true" index="true"/>
             </xsl:when>
@@ -170,7 +171,7 @@
         </xsl:when>
         <xsl:otherwise>
           <Field name="_title"
-                 string="{if ($title != '') then $title 
+                 string="{if ($title != '') then $title
                           else if (normalize-space(gmd:description/gco:CharacterString) != '')
                           then gmd:description/gco:CharacterString
                           else string-join(.//gco:Decimal, ', ')}"
@@ -185,7 +186,7 @@
 
     <xsl:template mode="index" match="gmd:DQ_DomainConsistency[count(ancestor::node()) =  1]">
         <Field name="_title"
-               string="{if ($title != '') then $title 
+               string="{if ($title != '') then $title
                         else gmd:result/*/gmd:specification/*/gmd:title/gco:CharacterString}"
                store="true" index="true"/>
 

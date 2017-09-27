@@ -1156,5 +1156,8 @@
     "mapConfigExtent": "Extent, expressed in current projection",
     "mapConfigLayers": "Layer objects in JSON: {\"type\"=\"XXX\",\"arg1\":\"YYY\",...}",
     "system/xlinkResolver/referencedDeletionAllowed": "Allow deletion of subtemplates referenced through an xlink.",
-    "system/xlinkResolver/referencedDeletionAllowed-help": "Checked means allow."
+    "system/xlinkResolver/referencedDeletionAllowed-help": "Checked means allow.",
+    "system/xlinkResolver/templatesToOperateOnAtInsert": "Templates to substitute at import time.",
+    "system/xlinkResolver/templatesToOperateOnAtInsert-help": "When importing a metadata, for each contained template of one of theses types, a xlink targeting the corresponding template in database will be set in place. If the template don't already exist, the insertion fails."
+
 }
